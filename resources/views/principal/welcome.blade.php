@@ -24,7 +24,7 @@
 @section('content')
 <!-- {!! $pt->render() !!} {{URL::previous()}} --> 
 	<div class="list-group">
-	    <a href="javascript:void(0);" class="list-group-item">
+	    <a href="{{asset('/biblioteca')}}" class="list-group-item">
 	    	<?php $num=0; ?>
 	    	<span class="badge bg-teal" id="total" name="total"> {!!$pt->count()!!} de {{$total}}</span>Proyectos
 	    </a>	        	

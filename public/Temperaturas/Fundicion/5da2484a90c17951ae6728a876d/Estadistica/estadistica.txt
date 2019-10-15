@@ -1,2 +1,0 @@
-id,idCoordenada,mediana,media,varianza,moda,desviacionEstandar
-1,1,10,80,21,30,11

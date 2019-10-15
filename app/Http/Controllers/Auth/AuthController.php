@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
-use Carbon\Carbon;
     
 class AuthController extends Controller
 {
@@ -48,13 +46,10 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             //$this->validate($request,[
-                'nombre'=>'required|min:1|max:50',
-                'apellidoPaterno'=>'required|min:1|max:50',
-                'apellidoMaterno'=>'required|min:1|max:50',
-                'email'=>'required|unique:usuario|min:7|max:90',
-                'boleta'=>'required',
+                'identificacion'=>'required',
                 'password' => 'required', 
                 'password2' => 'required',
+                'email'=>'required|unique:usuario|min:7|max:90',
             //]);
         ]);
     }
@@ -67,38 +62,11 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        $user = user::create([
-            'nombre' => $data['nombre'],
-            'apellidoPaterno'=>$data['apellidoPaterno'],
-            'apellidoMaterno'=>$data['apellidoMaterno'],
-            'email'=>$data['email'],
-            'boleta'=>$data['boleta'],
-            'password' => bcrypt($data['password']),
+        $user = App\User::create([
+            'identificacion' => $data['identificacion'],
+            'password'=> bcrypt($data['password']),
+            'email' => $data['email'],
             'tipo' => 2,
-            'permisos' => 0,
-            'completado' => 0,
-        ]);
-
-        $student = \App\informacion::create([
-            'usuario_id'=>$user->id,
-            'institucion_id' => 1,
-            'carrera_id' => 3,
-            'semestre' => 12,
-            'calle' => 'Calle generica',
-            'numExterior' => ''.rand (0 , 9),
-            'numInterior' => ''.rand (0 , 9),
-            'colonia' => 'Generica',
-            'codigoPostal' => rand (0 , 1).rand (0 , 1).rand (0 , 1).rand (0 , 1),
-            'sexo' => ''.rand (0 , 1),
-            'grupo' => '2CM3',
-            'edad' => rand (0 , 2).rand (0 , 2),
-            'telefono' => rand (0 , 1).rand (0 , 1).rand (0 , 1).rand (0 , 1),
-            'alergias' => 'Generico',
-            'estatura' => rand (151,180),
-            'peso' => rand (45,68),
-            'sangre' => 'A+',
-            'segMed' => rand (0,1),
-            'segIns' => rand (0,1),
         ]);
 
         return $user;
@@ -119,27 +87,11 @@ class AuthController extends Controller
             return view('auth.authenticate');
         }
 
-        $index = 4;
+        $index = 1;
 
-        /////// control de registro al sistema
-
-        $dateSE = \App\inicioFin::all();
-        $dateA = Carbon::now();
-        $dateA = $dateA->format('Y-m-d');
-
-        
-
-         $fecha_inicio = strtotime($dateSE->find(1)->fechaInicio);
-         $fecha_fin = strtotime($dateSE->find(1)->fechaFin);
-         $fecha = strtotime($dateA);
-
-         $valor;
-         if(($fecha >= $fecha_inicio) && ($fecha <= $fecha_fin))
-            $valor=1;
-         else
-             $valor=2;
-
-        return view('auth.login', ['index'=>$index, 'valor'=>$valor]);
+        return view('auth.login', [
+            'index'=>$index
+        ]);
     }
 
     public function postLogin(Request $request)
@@ -186,7 +138,7 @@ class AuthController extends Controller
     protected function getCredentials(Request $request){
         //return $request->only($this->loginUsername(), 'password');
         return array(
-            $this->loginUsername() => $request->boleta,
+            $this->loginUsername() => $request->username,
             'password'  => $request->password,
         );
     }
@@ -229,7 +181,7 @@ class AuthController extends Controller
      * @return string
      */
     public function loginUsername(){
-        return property_exists($this, 'username') ? $this->username : 'boleta';
+        return property_exists($this, 'username') ? $this->username : 'username';
     }
 
     //-------------------------------------------------------------------------------------------------------//
@@ -244,16 +196,11 @@ class AuthController extends Controller
           session()->flash('type', 'info');
 
           return property_exists($this, 'redirectTo') ? $this->redirectTo : '/admin';
-        } else if(Auth::user()->tipo() == 2){
-              session()->flash('message', '¡Bienvenido '. Auth::user(). '!');
-              session()->flash('type', 'success');
-
-              return property_exists($this, 'redirectTo') ? $this->redirectTo : '/user';
-        } else if(Auth::user()->tipo() == 3){
-              session()->flash('message', '¡Bienvenido! - Inició sesión como Coordinador');
+        }else if(Auth::user()->tipo() != 1){
+              session()->flash('message', '¡Bienvenido! - Sin sesión');
               session()->flash('type', 'blue-dirty');
 
-          return property_exists($this, 'redirectTo') ? $this->redirectTo : '/coord';
+          return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
         }
 
     }

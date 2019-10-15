@@ -17,8 +17,6 @@ class AvoidAuth
     {
     	if(Auth::check() && Auth::user()->tipo() == 1){
         return redirect('/admin');
-      } else if(Auth::check() && Auth::user()->tipo() == 3){
-        return redirect('/coord');
       }else{
           return redirect('/');
       }

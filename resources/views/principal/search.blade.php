@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('title')
-<title>SMIM</title>
+<title>SMIM Buscar</title>
 @stop
 
 @section('css')

@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('title')
-<title>Inicio Servicio</title>
+<title>SMIM Galeria</title>
 @stop
 @section('css')
 <link href="{{asset('/Template/plugins/light-gallery/css/lightgallery.css')}}" rel="stylesheet">

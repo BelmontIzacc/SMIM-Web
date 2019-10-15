@@ -15,7 +15,8 @@ class UsuarioMigracion extends Migration
         Schema::create('usuario', function (Blueprint $table) {
             $table->increments('id');
             
-            $table->string('identificacion',15)->unique();
+            $table->string('username',15)->unique();
+            $table->string('email',60);
             $table->string('password', 60);
             $table->integer('tipo')->default(1);
             $table->timestamps();

@@ -1,16 +1,38 @@
 @extends('layout.layout')
 @section('title')
-<title>Inicio Servicio</title>
+<title>SMIM Proyecto</title>
 @stop
 
 @section('css')
 <link href="{{asset('/Template/css/themes/all-themes.css')}}" rel="stylesheet">
+<link href="{{asset('/Template/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+<style type="text/css">
+	table td,th {
+  		text-align: center;
+	}
+	.profile-card
+	.profile-header {
+    	background-color: #008080;
+    	padding: 42px 0;
+	}
+	.profile-card .profile-body .image-area img {
+	    border: 2px solid #008080;
+	    padding: 2px;
+	    margin: 2px;
+	    -webkit-border-radius: 50%;
+	    -moz-border-radius: 50%;
+	    -ms-border-radius: 50%;
+	    border-radius: 50%;
+	}
+</style>
+
 @stop
 @section('popUp')
 @stop
 @section('content')
 <div class="row clearfix">
     <div class="col-xs-12 col-sm-3">
+
         <div class="card profile-card">
             <div class="profile-header">&nbsp;</div>
             <div class="profile-body">
@@ -28,7 +50,7 @@
             </div>
         </div>
 
-        <div class="card card-about-me">
+        <div class="card card-about-me" >
             <div class="header">
                 <h2>Información</h2>
             </div>
@@ -226,6 +248,180 @@
 							    </div>
 								@endif
                             </div>
+
+							<div class="panel panel-default panel-post">
+							    <div class="panel-heading">
+							        <div class="media">
+							            <div class="media-left">
+							                <a href="#">
+							                	<img src="{{asset('/Template/images/user-lg.jpg')}}">
+							                </a>
+							            </div>
+							            <div class="media-body">
+							                <h4 class="media-heading">
+							                    <a>{{$pt->nombreProyecto}}</a>
+							                </h4>
+							                Fecha - {{$pt->fecha()}}
+							                </br>Estadistica por Coordenada.
+							                </br>Se muestra estadistica del comportamiento de la temperatura en cada coordenada aplicada a todas las imagenes.
+							            </div>
+							        </div>
+							    </div>
+
+							    <div class="panel-body">
+							        <div class="post">
+							            <div class="post-content">
+								            @if($dEsta == null)
+											<div class="row clearfix">
+								                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								                    <div class="card">
+								                        <div class="header" align="center">
+								                            <h2>
+								                                Información No Disponible
+								                            </h2>
+								                        </div>
+								                    </div>
+								                </div>
+								            </div>
+								            @else
+											<!-- Exportable Table -->
+											<div class="row clearfix">
+								                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								                        <div class="body">
+								                            <div class="table-responsive">
+								                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+								                                    <thead>
+								                                        <tr>
+								                                            <th>Coordenada</th>
+								                                            <th>Mediana</th>
+								                                            <th>Media</th>
+								                                            <th>Varianza</th>
+								                                            <th>Moda</th>
+								                                            <th>Desviacion Estandar</th>
+								                                        </tr>
+								                                    </thead>
+								                                    <tfoot>
+								                                        <tr>
+								                                            <th>Coordenada</th>
+								                                            <th>Mediana</th>
+								                                            <th>Media</th>
+								                                            <th>Varianza</th>
+								                                            <th>Moda</th>
+								                                            <th>Desviacion Estandar</th>
+								                                        </tr>
+								                                    </tfoot>
+								                                    <tbody>
+								                                    	@foreach($dEsta as $des)
+								                                    	<tr>
+								                                    	<?php 
+								                                    		//idCoordenada,mediana,media,varianza,moda,desviacionEstandar
+				                                    						list($cor, $medi, $media, $var, $moda, $dE) = explode(',', $des);
+				                                    					?>
+								                                    		<td><?php echo $cor; ?></td>
+								                                            <td><?php echo $medi; ?></td>
+								                                            <td><?php echo $media; ?></td>
+								                                            <td><?php echo $var; ?></td>
+								                                            <td><?php echo $moda; ?></td>
+								                                            <td><?php echo $dE; ?></td>
+								                                        </tr>
+								                                    	@endforeach
+								                                    </tbody>
+								                                </table>
+								                            </div>
+								                        </div>
+								                    </div>
+								                </div>
+								            <!-- #END# Exportable Table -->
+								            @endif
+							            </div>
+							        </div>
+							    </div>
+							</div>
+
+							<div class="panel panel-default panel-post">
+							    <div class="panel-heading">
+							        <div class="media">
+							            <div class="media-left">
+							                <a href="#">
+							                	<img src="{{asset('/Template/images/user-lg.jpg')}}">
+							                </a>
+							            </div>
+							            <div class="media-body">
+							                <h4 class="media-heading">
+							                    <a>{{$pt->nombreProyecto}}</a>
+							                </h4>
+							                Fecha - {{$pt->fecha()}}
+							                </br>Estadistica promedio de las coordenadas en cada imagen.
+							            	</br>Se muestra la temperatura en promedio de las coordendas seleccionadas en cada imagen.
+							            </div>
+							        </div>
+							    </div>
+
+							    <div class="panel-body">
+							        <div class="post">
+							            <div class="post-content">
+								            @if($dImagen == null)
+											<div class="row clearfix">
+								                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								                    <div class="card">
+								                        <div class="header" align="center">
+								                            <h2>
+								                                Información No Disponible
+								                            </h2>
+								                        </div>
+								                    </div>
+								                </div>
+								            </div>
+								            @else
+											<!-- Exportable Table -->
+											<div class="row clearfix">
+								                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								                        <div class="body">
+								                            <div class="table-responsive">
+								                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+								                                    <thead>
+								                                        <tr>
+								                                            <th>Imagen</th>
+								                                            <th>Celsius</th>
+								                                            <th>Kelvin</th>
+								                                            <th>Farenheit</th>
+								                                        </tr>
+								                                    </thead>
+								                                    <tfoot>
+								                                        <tr>
+								                                            <th>Imagen</th>
+								                                            <th>Celsius</th>
+								                                            <th>Kelvin</th>
+								                                            <th>Farenheit</th>
+								                                        </tr>
+								                                    </tfoot>
+								                                    <tbody>
+								                                    	<tr>
+								                                    	@foreach($dImagen as $di)
+								                                    	<?php 
+								                                    		//nombreImagen,celsius,kelvin,farenheit
+				                                    						list($nI, $celsius, $kelvin, $farenheit) = explode(',', $di);
+				                                    					?>
+								                                    		<td><?php echo $nI; ?></td>
+								                                            <td><?php echo $celsius; ?></td>
+								                                            <td><?php echo $kelvin; ?></td>
+								                                            <td><?php echo $farenheit; ?></td>
+								                                        </tr>
+								                                    	@endforeach
+								                                    </tbody>
+								                                </table>
+								                            </div>
+								                        </div>
+								                    </div>
+								                </div>
+								            <!-- #END# Exportable Table -->
+								            @endif
+							            </div>
+							        </div>
+							    </div>
+							</div>
+
+
                         </div>
                     </div>
                 </div>
@@ -236,5 +432,16 @@
 
 @stop
 @section('scripts')
+
+<script src="{{asset('/Template/plugins/jquery-datatable/jquery.dataTables.js')}}"></script>
+<script src="{{asset('/Template/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js')}}"></script>
+<script src="{{asset('/Template/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('/Template/plugins/jquery-datatable/extensions/export/buttons.flash.min.js')}}"></script>
+<script src="{{asset('/Template/plugins/jquery-datatable/extensions/export/jszip.min.js')}}"></script>
+<script src="{{asset('/Template/plugins/jquery-datatable/extensions/export/pdfmake.min.js')}}"></script>
+<script src="{{asset('/Template/plugins/jquery-datatable/extensions/export/vfs_fonts.js')}}"></script>
+<script src="{{asset('/Template/plugins/jquery-datatable/extensions/export/buttons.html5.min.js')}}"></script>
+<script src="{{asset('/Template/plugins/jquery-datatable/extensions/export/buttons.print.min.js')}}"></script>
+<script src="{{asset('/Template/js/pages/tables/jquery-datatable.js')}}"></script>
 <script src="{{asset('/Template/js/pages/examples/profile.js')}}"></script>
 @stop

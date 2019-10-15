@@ -18,11 +18,11 @@ class proyecto extends Model
         'grupoAlumno',
         'linkProyecto',
     ];
-
+    
     public function tipo(){
         return $this->belongsTo(tipo::class, 'tipo_id');
     }
-
+    
     public function imagen(){
         //"/".$p->linkProyecto."/img/1.jpg"
         $imgDirectorio = opendir(''.$this->linkProyecto.'/img'); //ruta actual
@@ -45,7 +45,7 @@ class proyecto extends Model
         $tam = count($img);
         if($tam == 0){
             //return '/Template/images/Video-no.jpg';
-            return '/Template/images/Imagen_no_disponible.svg';
+            return '/Template/images/imagenNo.png';
         }else{
             return '/'.$this->linkProyecto.'/img/'.$img[0];
         }

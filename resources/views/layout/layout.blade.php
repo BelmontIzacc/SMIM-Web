@@ -26,13 +26,24 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="{{asset('/Template/css/themes/all-themes.css')}}" rel="stylesheet">
+    
+    <style type="text/css">
+        .sidebar .user-info {
+        padding: 13px 15px 12px 15px;
+        white-space: nowrap;
+        position: relative;
+        border-bottom: 1px solid #e9e9e9;
+        background: url({{asset('/Template/images/upiiz-new.png')}}) no-repeat no-repeat;
+        height: 135px;
+    }
+    </style>
 
     @yield('css')
 
 </head>
 @yield('popUp')
 
-<body class="theme-red">
+<body class="theme-teal">
     <!-- Page Loader -->
     <div class="page-loader-wrapper" style="display: none;">
         <div class="loader">
@@ -102,15 +113,19 @@
                     <img src="{{asset('/Template/images/user.png')}}" width="48" height="48" alt="User">
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SMIM</div>
-                    <div class="email">john.doe@example.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><p class="font-bold" style="color:black;">SMIM</p></div>
+                    <!-- <div class="email">john.doe@example.com</div> -->
                     <div class="btn-group user-helper-dropdown">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                        <i class="material-icons font-bold" data-toggle="dropdown" style="color:#008080;" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="{{asset('/test')}}" class=" waves-effect waves-block"><i class="material-icons">person</i>Sing In</a></li>
+                            @unless($index == 2)
+                            <li><a href="{{asset('/login')}}" class=" waves-effect waves-block"><i class="material-icons">person</i>Sing In</a></li>
+                            @endunless
 							@unless($index == 1)
+                            @unless($index == 2)
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);" class=" waves-effect waves-block"><i class="material-icons">input</i>Sign Out</a></li>
+                            @endunless
+                            <li><a href="{{asset('/logout')}}"" class=" waves-effect waves-block"><i class="material-icons">input</i>Sign Out</a></li>
 							@endunless
                         </ul>
                     </div>
@@ -128,7 +143,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{asset('/test')}}" class=" waves-effect waves-block">
+                        <a href="{{asset('/biblioteca')}}" class=" waves-effect waves-block">
                             <i class="material-icons">folder</i>
                             <span>Biblioteca</span>
                         </a>

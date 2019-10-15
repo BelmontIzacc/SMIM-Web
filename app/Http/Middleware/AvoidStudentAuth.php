@@ -15,7 +15,7 @@ class AvoidStudentAuth
      */
     public function handle($request, Closure $next)
     {
-      if(Auth::user()->tipo() == 2){
+      if(Auth::user()->tipo() != 1){
           return redirect('/');
       }
 

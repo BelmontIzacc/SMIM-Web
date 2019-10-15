@@ -1,0 +1,2 @@
+idCoordenada,mediana,media,varianza,moda,desviacionEstandar
+1,293.5,251.5,7837.25,100.0,88.52824408063226

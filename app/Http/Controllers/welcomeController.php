@@ -18,17 +18,35 @@ class welcomeController extends Controller
      */
     public function index()
     {
-        $pages = 6;
-        $proyecto = \App\proyecto::paginate($pages);
-        $total = count(\App\proyecto::all());
-        $index = 1;
+        if(Auth::user()){
+            $pages = 6;
+            $proyecto = \App\proyecto::paginate($pages);
+            $total = count(\App\proyecto::all());
+            $index = 2;
+            $user = Auth::user();
 
-        return view('principal.welcome', [
-           'index' => $index,
-           'pt' => $proyecto,
-           'total' => $total,
-           'pg' => $pages,
-        ]);
+            return view('principal.welcome', [
+               'index' => $index,
+               'pt' => $proyecto,
+               'total' => $total,
+               'pg' => $pages,
+               'user'   => $user,
+            ]);
+
+        }else{
+            $pages = 6;
+            $proyecto = \App\proyecto::paginate($pages);
+            $total = count(\App\proyecto::all());
+            $index = 1;
+
+            return view('principal.welcome', [
+               'index' => $index,
+               'pt' => $proyecto,
+               'total' => $total,
+               'pg' => $pages,
+            ]);
+
+        }
     }
 
     public function buscar(Request $request)
@@ -40,6 +58,13 @@ class welcomeController extends Controller
         //$medicalData = \App\medicalData::where('numSeguro', 'like', $request->busqueda)->get();
 
         $index = 1;
+        $user = null;
+
+        if(Auth::user()){
+            $index = 2;
+            $user = Auth::user();
+        }
+
         $palabra = $request->busqueda;
         $pages = 6;
         
@@ -93,6 +118,7 @@ class welcomeController extends Controller
             'ap'    => $alumnoProyecto,
             'gp'    => $grupoProyecto,
             'tip'   => $tipoProyecto,
+            'user'  => $user,
         ]);
         
     }
@@ -157,6 +183,13 @@ class welcomeController extends Controller
             $objeto = $tipoProyecto;
         }
 
+        $user = null;
+
+        if(Auth::user()){
+            $index = 2;
+            $user = Auth::user();
+        }
+
         return view('principal.searchRes', [
             'index' => $index,
             'palabra' => $palabra,
@@ -168,6 +201,7 @@ class welcomeController extends Controller
             'gp'    => $grupoProyecto,
             'tip'   => $tipoProyecto,
             'ob'    => $objeto,
+            'user'  => $user,
         ]);
 
     }
@@ -193,7 +227,7 @@ class welcomeController extends Controller
                 $img[] = ''.$archivo;
             }
         }
-
+        
 
         //Coordenadas
         $fp = fopen(''.$nombre."/coordenada/coordenada.txt", "r");
@@ -211,11 +245,83 @@ class welcomeController extends Controller
 
         //print_r($coord);
 
+        //estadistica por punto de interes
+        $dEstadistica = opendir(''.$nombre."/estadistica"); //ruta actual
+        $est = array();
+
+        while ($archivo = readdir($dEstadistica)) //obtenemos un archivo y luego otro sucesivamente
+        {
+            if (is_dir($archivo))//verificamos si es o no un directorio
+            {
+                //echo "[".$archivo . "]<br />"; //de ser un directorio lo envolvemos entre corchetes
+            }
+            else
+            {
+                $fp = fopen(''.$nombre."/estadistica"."/".$archivo, "r");
+                
+                $i = 0;
+                while (!feof($fp)){
+                    $linea = fgets($fp);
+                    //echo $linea;
+                    if($i>0){
+                        $est[] = $linea;
+                    }
+                    $i++;
+                }
+            }
+        }
+
+        $tamEs = count($est);
+        if($tamEs == 0){
+            $est = null;
+        }
+
+        //promedio por imagen
+        $dImagen = opendir(''.$nombre."/estadisticaXimagen"); //ruta actual
+        $ex = array();
+
+        while ($archivo = readdir($dImagen)) //obtenemos un archivo y luego otro sucesivamente
+        {
+            if (is_dir($archivo))//verificamos si es o no un directorio
+            {
+                //echo "[".$archivo . "]<br />"; //de ser un directorio lo envolvemos entre corchetes
+            }
+            else
+            {
+                $fp = fopen(''.$nombre."/estadisticaXimagen"."/".$archivo, "r");
+                
+                $i = 0;
+                while (!feof($fp)){
+                    $linea = fgets($fp);
+                    //echo $linea;
+                    if($i>0){
+                        $ex[] = $linea;
+                    }
+                    $i++;
+                }
+            }
+        }
+
+        $tamEx = count($ex);
+        if($tamEx == 0){
+            $ex = null;
+        }
+        
+        $user = null;
+
+        if(Auth::user()){
+            $index = 2;
+            $user = Auth::user();
+        }
+
         return view('card.individual', [
             'pt'    =>  $proyecto,
             'index' =>  $index,
             'img'   =>  $img, 
             'cord'  =>  $coord,
+            'dImagen'   =>  $ex,
+            'dEsta' =>  $est,
+            'user'  => $user,
         ]);
     }
 
@@ -241,35 +347,47 @@ class welcomeController extends Controller
             }
         }
 
+        $user = null;
+
+        if(Auth::user()){
+            $index = 2;
+            $user = Auth::user();
+        }
+
         return view('card.galeria', [
             'pt'    =>  $proyecto,
             'index' =>  $index,
             'img'   =>  $img, 
+            'user'  =>  $user,
         ]);
     }
 
-    public function test()
+    public function biblioteca()
     {
-        $directorio = opendir("Temperaturas"); //ruta actual
-        $cantidad = 0;
+        $index = 1;
+        $proyecto = \App\proyecto::all();
 
-        $array = array();
+        $user = null;
 
-        while ($archivo = readdir($directorio)) //obtenemos un archivo y luego otro sucesivamente
-        {
-            if (is_dir($archivo))//verificamos si es o no un directorio
-            {
-                echo "[".$archivo . "]<br />"; //de ser un directorio lo envolvemos entre corchetes
-            }
-            else
-            {
-                echo $archivo . "<br />";
-                $array[] = ''.$archivo;
-            }
+        if(Auth::user()){
+            $index = 2;
+            $user = Auth::user();
         }
-        print_r($array);
+
+        return view('biblioteca.biblioteca', [
+            'index' =>  $index,
+            'proyecto' => $proyecto,
+            'user'  => $user,
+        ]);
+
     }
 
+    public function creditos()
+    {
+        return view('principal.creditos', [
+           
+        ]);
+    }
 
     public function error404()
     {
