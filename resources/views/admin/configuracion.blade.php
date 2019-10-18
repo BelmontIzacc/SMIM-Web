@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('title')
-<title>SMIM Admin</title>
+<title>SMIM Configuracion</title>
 @stop
 
 @section('css')
@@ -9,7 +9,7 @@
 @section('popUp')
 @stop
 @section('content')
-holo
+holo config
 
 @stop
 @section('scripts')

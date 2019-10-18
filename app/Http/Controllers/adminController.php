@@ -25,4 +25,12 @@ class adminController extends Controller
         return redirect('/');
     }
 
+    public function config()
+    {
+        $index = 2;
+
+        return view('admin.configuracion', [
+           'index' => $index,
+        ]);
+    }
 }

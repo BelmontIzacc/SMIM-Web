@@ -27,6 +27,7 @@ Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout','Auth\AuthController@getLogout');
 //-----------------------------------------------------------------------------------//
 Route::get('/admin', 'adminController@index');
+Route::get('/administrador/configuracion', 'adminController@config');
 // Password reset link request routes...
 Route::get('/password/email', 'Auth\PasswordController@getEmail');
 Route::post('/password/email', 'Auth\PasswordController@postEmail');
@@ -34,5 +35,5 @@ Route::post('/password/email', 'Auth\PasswordController@postEmail');
 Route::get('/password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('/password/reset', 'Auth\PasswordController@postReset');
 
-Route::get('/extra', 'welcomeController@creditos');
+Route::get('/creditos', 'welcomeController@creditos');
 Route::get('/error', 'welcomeController@error404');

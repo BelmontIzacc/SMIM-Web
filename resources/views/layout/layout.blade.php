@@ -151,7 +151,7 @@
                     @unless($index == 1)
                     <li class="header">Configuración</li>
                     <li>
-                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                        <a href="{{asset('/administrador/configuracion')}}" class=" waves-effect waves-block">
                             <i class="material-icons">settings</i>
                             <span>Configuración</span>
                         </a>
@@ -163,7 +163,7 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    © 2019 <a href="javascript:void(0);">SMIM - Sistema de Medición </br> Infrarroja para Materiales</a>.
+                    © 2019 <a href="{{asset('/creditos')}}">SMIM - Sistema de Medición </br> Infrarroja para Materiales</a>.
                 </div>
                 <div class="version">
                     <b>Version: </b> 1.0.0

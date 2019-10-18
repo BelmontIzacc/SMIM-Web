@@ -15,17 +15,28 @@
 	    // del cursor del mouse. Después se hace negativo,
 	    // para que este sea en dirección contrario, con una
 	    // sensación de desplazamiento más que de arrastre.
-	    var x = -(e.clientX/10);
+	    var x = -(e.clientX/700);
 	    // lo mismo para Y
-	    var y = -(e.clientY/10);
+	    var y = -(e.clientY/50);
 	    // backgroundPosition son las coordenadas del fondo
 	    this.body.style.backgroundPosition = x + 'px ' + y + 'px';
 	  };
 	};
   </script>
   <style type="text/css">
+	
+	@media screen and (max-width:640px) {
+  		/* reglas CSS */
+	}
+	@media screen and (max-width:1024px) and (min-width:640px) {
+	  	/* reglas CSS */
+	}
+	@media screen and (min-width:1024px) {
+	  	/* reglas CSS */
+	}
+
 	body{
-		background: url('{{asset('/Template/images/hole.jpg')}}') no-repeat center center fixed;
+		background: url('{{asset('/Template/images/computing.jpg')}}') no-repeat center center fixed;
 		-webkit-background-size: cover;
 		-moz-background-size: cover;
 		-o-background-size: cover;
