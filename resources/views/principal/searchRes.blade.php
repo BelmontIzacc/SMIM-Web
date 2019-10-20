@@ -63,7 +63,7 @@
 		 	if( count($ap) != 0):
 		?>
 		 		<a href="{{asset('/resultados/palabra=')}}{{$palabra}}/NombreAlumno" class="list-group-item">
-                    <span class="badge bg-orange">{{$ap->count()}}</span>Nombre del Alumno
+                    <span class="badge bg-orange">{{$ap->count()}}</span>Nombre del Usuario
                 </a>
         <?php 
     		endif; 
@@ -104,7 +104,7 @@
 	            <div class="body">
 	            	<p class="overflow-ellipsis" >Folio : {{$o->noSerie}}</p>
 	            	<p>Tipo : {{$o->tipo->nombre}}</p>
-	            	<p class="overflow-ellipsis" >Alumno : {{$o->nombreAlumno}}</p>
+	            	<p class="overflow-ellipsis" >Usuario : {{$o->nombreAlumno}}</p>
 	                <p>Fecha : {{$o->fecha()}}</p>
 	               	<p>Tiempo de Analisis : {{$o->tiempoAnalisis}}</p>
 	            </div>

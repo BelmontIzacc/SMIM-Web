@@ -27,7 +27,12 @@ Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout','Auth\AuthController@getLogout');
 //-----------------------------------------------------------------------------------//
 Route::get('/admin', 'adminController@index');
-Route::get('/administrador/configuracion', 'adminController@config');
+
+Route::get('/configuracion/borrar', 'adminController@borrar');
+Route::post('/configuracion/borrar', 'adminController@borrarPost');
+
+Route::get('/configuracion/editar', 'adminController@editar');
+Route::post('/configuracion/editar', 'adminController@editarPost');
 // Password reset link request routes...
 Route::get('/password/email', 'Auth\PasswordController@getEmail');
 Route::post('/password/email', 'Auth\PasswordController@postEmail');

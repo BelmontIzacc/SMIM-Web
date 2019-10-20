@@ -69,7 +69,7 @@
         <div class="search-icon">
             <i class="material-icons">search</i>
         </div>
-        <input type="text" placeholder="Escribe la palabra clave..." id="search" onkeypress="search(event);">
+        <input type="text" placeholder="START TYPING..." id="search" onkeypress="search(event);">
         <div class="close-search">
             <i class="material-icons">close</i>
         </div>
@@ -194,7 +194,6 @@
     <section class="content">
         <div class="container-fluid">
             @include('alerts.sessionAlert')
-            @include('alerts.formError')
             <h3 class="with-border text-center">@yield('subHead')</h3>
             @yield('content')
         </div>

@@ -16,7 +16,8 @@ class paletaSeeder extends Seeder
             'tonalidadRangoMin' => '-7891011',
             'tempRangoMax' => '304',
             'tempRangoMin' => '25',
-            'NombrePaleta' => 'Arcoiris',
+            'nombrePaleta' => 'Arcoiris',
+            'linkEscala'    => 'Paletas/Arcoiris.txt',
         ]);
     }
 }

@@ -53,7 +53,61 @@
 </head>
 <body>
 <div id="info">
-  El fondo se mueve!
+
+<table class="egt">
+
+	  <tr>
+
+	    <td><img src="{{asset('/Template/images/ipn.png')}}" width="70" height="60" alt="IPN"></img></td>
+
+	    <td></td>
+
+	    <td><img src="{{asset('/Template/images/upiiz.png')}}" width="60" height="60" alt="UPIIZ"></img></td>
+
+	  </tr>
+
+	  <tr>
+
+	    <td></td>
+
+	    <td><p>Unidad Profesional Interdisciplinaria de Ingeniería, Campus Zacatecas</p></td>
+
+	    <td></td>
+
+	  </tr>
+
+	  <tr>
+
+	    <td></td>
+
+	    <td><p>Ingenieria en Sistemas Computacionales</p></td>
+
+	    <td></td>
+
+	  </tr>
+
+	  <tr>
+
+	    <td></td>
+
+	    <td><p>Isaul Ibarra Belmonte</p></td>
+
+	    <td></td>
+
+	  </tr>
+
+	  <tr>
+
+	    <td></td>
+
+	    <td><p>Olga Alejandra Beltran Silva</p></td>
+
+	    <td></td>
+
+	  </tr>
+
+</table>
+
 </div>
 </body>
 </html>

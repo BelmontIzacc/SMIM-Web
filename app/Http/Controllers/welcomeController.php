@@ -9,16 +9,26 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
+/*** 
+    Funciones para el control general del sistema, contiene funciones para la muestra de información,
+    Galería, vista principal, vista detallada de un solo proyecto, buscar proyectos en el sistema por palabras clave 
+    Y mostrar todos los proyectos registrados.
+    @autor IBelmont
+    @since 20/09/19
+***/
+
 class welcomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*
+        @Devuelve la vista principal, enviando la información de los proyectos registrados
+        Y si se esta logeado se envia la informacion del usuario a la vista.
+        @IBelmont
+        @sice 20/09/19
+    */
     public function index()
     {
         if(Auth::user()){
+
             $pages = 6;
             $proyecto = \App\proyecto::paginate($pages);
             $total = count(\App\proyecto::all());
@@ -34,28 +44,38 @@ class welcomeController extends Controller
             ]);
 
         }else{
+
             $pages = 6;
             $proyecto = \App\proyecto::paginate($pages);
             $total = count(\App\proyecto::all());
             $index = 1;
 
             return view('principal.welcome', [
+
                'index' => $index,
                'pt' => $proyecto,
                'total' => $total,
                'pg' => $pages,
+
             ]);
 
         }
     }
 
+    /*
+        @Función para encontrar las coincidencias con la palabra clave en los proyectos registrados en base de datos en el sistema
+        @IBelmont
+        @sice 28/09/19
+        @params Request $request -> Palabra clave a buscar
+    */
     public function buscar(Request $request)
     {
-        $this->validate($request, [
-            'busqueda' => 'required'
-        ]);
 
-        //$medicalData = \App\medicalData::where('numSeguro', 'like', $request->busqueda)->get();
+        $this->validate($request, [
+
+            'busqueda' => 'required'
+
+        ]);
 
         $index = 1;
         $user = null;
@@ -76,9 +96,12 @@ class welcomeController extends Controller
         
         $tipo = \App\tipo::where('nombre','like','%'.$palabra.'%')->first();
         $tipoProyecto = null;
+
         if(count($tipo) != 0){
+
             $id = $tipo->id;
             $tipoProyecto = \App\proyecto::where('tipo_id','like','%'.$id.'%')->get();
+
         }
         
 
@@ -109,6 +132,7 @@ class welcomeController extends Controller
         }
 
         return view('principal.search', [
+
             'index' => $index,
             'palabra' => $palabra,
             'coin'  => $coin,
@@ -119,12 +143,21 @@ class welcomeController extends Controller
             'gp'    => $grupoProyecto,
             'tip'   => $tipoProyecto,
             'user'  => $user,
+
         ]);
         
     }
 
+    /*
+        @Función para mostrar el resultado de la busqueda de la palabra clave despues de elegir una categoria para la
+        Muestra de proyectos relacionados.
+        @IBelmont
+        @sice 29/09/19
+        @params $palabra = palabra clave a buscar, $t = categoria para mostrar el resultado
+    */
     public function buscarIndi($palabra,$t)
     {
+
         $index = 1;
         $pages = 6;
         
@@ -136,9 +169,12 @@ class welcomeController extends Controller
         
         $tipo = \App\tipo::where('nombre','like','%'.$palabra.'%')->first();
         $tipoProyecto = null;
+
         if(count($tipo) != 0){
+
             $id = $tipo->id;
             $tipoProyecto = \App\proyecto::where('tipo_id','like','%'.$id.'%')->get();
+
         }
         
 
@@ -169,28 +205,39 @@ class welcomeController extends Controller
         }
 
         $objeto = null;
-        if($t == 'NombreProyecto'){
-            $objeto = $nombreProyecto;
-        }else if($t == 'TiempoAnalisis'){
-            $objeto = $tiempoProyecto;
-        }else if($t == 'NumeroSerie'){
-            $objeto = $serieProyecto;
-        }else if($t == 'NombreAlumno'){
-            $objeto = $alumnoProyecto;
-        }else if($t == 'GrupoAlumno'){
-            $objeto = $grupoProyecto;
-        }else if($t == 'TipoProyecto'){
-            $objeto = $tipoProyecto;
+
+        switch ($t) {
+            case 'NombreProyecto':
+                $objeto = $nombreProyecto;
+                break;
+            case 'TiempoAnalisis':
+                $objeto = $tiempoProyecto;
+                break;
+            case 'NumeroSerie':
+                $objeto = $serieProyecto;
+                break;
+            case 'NombreAlumno':
+                $objeto = $alumnoProyecto;
+                break;
+            case 'GrupoAlumno':
+                $objeto = $grupoProyecto;
+                break;
+            case 'TipoProyecto':
+                $objeto = $tipoProyecto;
+                break;
         }
 
         $user = null;
 
         if(Auth::user()){
+
             $index = 2;
             $user = Auth::user();
+
         }
 
         return view('principal.searchRes', [
+
             'index' => $index,
             'palabra' => $palabra,
             'coin'  => $coin,
@@ -202,119 +249,71 @@ class welcomeController extends Controller
             'tip'   => $tipoProyecto,
             'ob'    => $objeto,
             'user'  => $user,
+
         ]);
 
     }
 
+    /*
+        @Función para mostrar la información desglosada de un proyecto en específico
+        @IBelmont
+        @sice 20/09/19
+        @params $id = noSerie del proyecto
+    */
     public function proyecto($id)
     {
+
         $index = 1;
         $proyecto = \App\proyecto::where('noSerie','like','%'.$id.'%')->first();
         $nombre = $proyecto->linkProyecto;
 
-        $directorio = opendir(''.$nombre."/img"); //ruta actual
+        $directorio = opendir(''.$nombre."/img");
         $img = array();
-
-        while ($archivo = readdir($directorio)) //obtenemos un archivo y luego otro sucesivamente
-        {
-            if (is_dir($archivo))//verificamos si es o no un directorio
-            {
-                //echo "[".$archivo . "]<br />"; //de ser un directorio lo envolvemos entre corchetes
-            }
-            else
-            {
-                //echo $archivo . "<br />";
-                $img[] = ''.$archivo;
-            }
-        }
-        
+        $img = $this->leerDirectorio($directorio);
+        $totalImg = count($img);
 
         //Coordenadas
         $fp = fopen(''.$nombre."/coordenada/coordenada.txt", "r");
         $coord = array();
-        $i = 0;
-        while (!feof($fp)){
-            $linea = fgets($fp);
-            //echo $linea;
-            if($i>0){
-                $coord[] = $linea;
-            }
-            $i++;
-        }
-        fclose($fp);
-
-        //print_r($coord);
+        $coord = $this->leerArchivo($fp,$coord);
 
         //estadistica por punto de interes
-        $dEstadistica = opendir(''.$nombre."/estadistica"); //ruta actual
+        $dEstadistica = opendir(''.$nombre."/estadistica");
         $est = array();
-
-        while ($archivo = readdir($dEstadistica)) //obtenemos un archivo y luego otro sucesivamente
-        {
-            if (is_dir($archivo))//verificamos si es o no un directorio
-            {
-                //echo "[".$archivo . "]<br />"; //de ser un directorio lo envolvemos entre corchetes
-            }
-            else
-            {
-                $fp = fopen(''.$nombre."/estadistica"."/".$archivo, "r");
-                
-                $i = 0;
-                while (!feof($fp)){
-                    $linea = fgets($fp);
-                    //echo $linea;
-                    if($i>0){
-                        $est[] = $linea;
-                    }
-                    $i++;
-                }
-            }
-        }
+        $est = $this->leerMultipleArchivo($nombre,$dEstadistica,"/estadistica",$est);
 
         $tamEs = count($est);
+
         if($tamEs == 0){
+
             $est = null;
+
         }
 
         //promedio por imagen
-        $dImagen = opendir(''.$nombre."/estadisticaXimagen"); //ruta actual
+        $dImagen = opendir(''.$nombre."/estadisticaXimagen");
         $ex = array();
-
-        while ($archivo = readdir($dImagen)) //obtenemos un archivo y luego otro sucesivamente
-        {
-            if (is_dir($archivo))//verificamos si es o no un directorio
-            {
-                //echo "[".$archivo . "]<br />"; //de ser un directorio lo envolvemos entre corchetes
-            }
-            else
-            {
-                $fp = fopen(''.$nombre."/estadisticaXimagen"."/".$archivo, "r");
-                
-                $i = 0;
-                while (!feof($fp)){
-                    $linea = fgets($fp);
-                    //echo $linea;
-                    if($i>0){
-                        $ex[] = $linea;
-                    }
-                    $i++;
-                }
-            }
-        }
+        $ex = $this->leerMultipleArchivo($nombre,$dImagen,"/estadisticaXimagen",$ex);
 
         $tamEx = count($ex);
+
         if($tamEx == 0){
+
             $ex = null;
+
         }
         
         $user = null;
 
         if(Auth::user()){
+
             $index = 2;
             $user = Auth::user();
+
         }
 
         return view('card.individual', [
+
             'pt'    =>  $proyecto,
             'index' =>  $index,
             'img'   =>  $img, 
@@ -322,46 +321,58 @@ class welcomeController extends Controller
             'dImagen'   =>  $ex,
             'dEsta' =>  $est,
             'user'  => $user,
+            'total' =>  $totalImg,
+
         ]);
+
     }
 
+    /*
+        @Función para mostrar las imagenes de un proyecto elegido en espesifico
+        @IBelmont
+        @sice 05/10/19
+        @params $id = noSerie de un proyecto en espesifico
+    */
     public function galeria($id)
     {
+
         $index = 1;
         $proyecto = \App\proyecto::where('noSerie','like','%'.$id.'%')->first();
 
         $link = ''.$proyecto->linkProyecto.'/img';
-        $directorio = opendir($link); //ruta actual
-        $img = array();
-
-        while ($archivo = readdir($directorio)) //obtenemos un archivo y luego otro sucesivamente
-        {
-            if (is_dir($archivo))//verificamos si es o no un directorio
-            {
-                //echo "[".$archivo . "]<br />"; //de ser un directorio lo envolvemos entre corchetes
-            }
-            else
-            {
-                //echo $archivo . "<br />";
-                $img[] = ''.$archivo;
-            }
-        }
+        $directorio = opendir($link); 
+        $img = array(); 
+        $img = $this->leerDirectorio($directorio);
+        $totalImg = count($img);
 
         $user = null;
 
         if(Auth::user()){
+
             $index = 2;
             $user = Auth::user();
+
         }
 
         return view('card.galeria', [
+
             'pt'    =>  $proyecto,
             'index' =>  $index,
             'img'   =>  $img, 
             'user'  =>  $user,
+            'total' =>  $totalImg,
+
         ]);
+
     }
 
+
+    /*
+        @Función para mostrar todos los proyectos en específico del sistema
+        @IBelmont
+        @sice 06/10/19
+        @params $id = noSerie de un proyecto en espesifico
+    */
     public function biblioteca()
     {
         $index = 1;
@@ -370,40 +381,179 @@ class welcomeController extends Controller
         $user = null;
 
         if(Auth::user()){
+
             $index = 2;
             $user = Auth::user();
+
         }
 
         return view('biblioteca.biblioteca', [
+
             'index' =>  $index,
             'proyecto' => $proyecto,
             'user'  => $user,
+
         ]);
 
     }
 
+    /*
+        @Función que devuelve la vista de creditos
+        @IBelmont
+        @sice 12/10/19
+        @params $id = noSerie de un proyecto en espesifico
+    */
     public function creditos()
     {
+        $index = 2;
+
         return view('principal.creditos', [
-           
+
+            'index' =>  $index,
+
         ]);
+
     }
 
+/*
+        @Función leer multiples archivos de un directorio
+        @IBelmont
+        @sice 20/10/19
+        @params $nombre = nombre de carpeta principal, $arreglo = variable donde se almacenara las lineas del texto
+        $directorio = subcarpeta que le leeran los archivos dentro, $carpeta = leer archivo por archivo del sub directorio
+    */
+    public function leerMultipleArchivo($nombre, $directorio, $carpeta,$arrelo)
+    {
+        while ($archivo = readdir($directorio))
+        {
+
+            if (is_dir($archivo))
+            {
+                
+            }
+            else
+            {
+
+                $fp = fopen(''.$nombre.$carpeta.""."/".$archivo, "r");
+                
+                $i = 0;
+
+                while (!feof($fp)){
+
+                    $linea = fgets($fp);
+
+                    if($i>0){
+
+                        $arrelo[] = $linea;
+
+                    }
+
+                    $i++;
+
+                }
+
+            }
+
+        }
+
+        return $arrelo;
+    }
+
+    /*
+        @Función leer un archivo de un directorio
+        @IBelmont
+        @sice 20/10/19
+        @params $fileOpen = direcion de la carpeta del txt, $arreglo = variable donde se almacenara las lineas del texto
+    */
+    public function leerArchivo($fileOpen,$arreglo)
+    {
+        $fp = $fileOpen;
+        $i = 0;
+        while (!feof($fp)){
+
+            $linea = fgets($fp);
+
+            if($i>0){
+
+                $arreglo[] = $linea;
+
+            }
+
+            $i++;
+
+        }
+
+        fclose($fp);
+        return $arreglo;
+    }
+
+    /*
+        @Función leer las imagenes de un directorio
+        @IBelmont
+        @sice 20/10/19
+        @params $directorio = direcion de la carpeta de imagenes
+    */
+    public function leerDirectorio($directorio)
+    {
+        $arreglo = array();
+
+        while ($archivo = readdir($directorio)) 
+        {
+
+            if (is_dir($archivo))
+            {
+                
+            }
+            else
+            {
+
+                $arreglo[] = ''.$archivo;
+
+            }
+
+        }
+
+        return $arreglo;
+    }
+
+    /*
+        @Función que devuelve la vista del error 404
+        @IBelmont
+        @sice 20/09/19
+        @params $id = noSerie de un proyecto en espesifico
+    */
     public function error404()
     {
-        return view('errors.404', [
-           
-        ]);
+
+        return view('errors.404');
+
     }
+
+    /*
+        @Función que devuelve la pura vista del layout
+        @IBelmont
+        @sice 20/09/19
+        @params Request $requiest
+    */    
     public function store(Request $request)
     {
+
         user::create($request->all());
         return view('layout');
+
     }
+
+    /*
+        @Función que devuelve la vista de no encontrado
+        @IBelmont
+        @sice 20/09/19
+    */        
     public function stop()
     {
+
         $index = 4;
         return view('errors.unavailable', ['index'=>$index]);
+
     }
 
 }

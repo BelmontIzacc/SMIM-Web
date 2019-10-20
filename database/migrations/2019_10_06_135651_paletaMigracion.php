@@ -20,7 +20,8 @@ class PaletaMigracion extends Migration
             $table->string('tempRangoMax', 10)->nullable();
             $table->string('tempRangoMin', 10)->nullable();
 
-            $table->string('NombrePaleta', 10)->nullable();
+            $table->string('nombrePaleta', 10)->nullable();
+            $table->string('linkEscala', 300)->nullable();
             $table->timestamps();
         });  
     }

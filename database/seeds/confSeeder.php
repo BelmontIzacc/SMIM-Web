@@ -12,9 +12,9 @@ class confSeeder extends Seeder
     public function run()
     {
         DB::table('configuracion')->insert([
-            'duracionVideo' => '15',
+            'duracionVideo' => '5',
             'numImagenes' => '30',
-            'numCoordendaas' => '5',
+            'numCoordenadas' => '5',
         ]);
     }
 }

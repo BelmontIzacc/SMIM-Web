@@ -54,7 +54,7 @@
 	            <div class="body">
 	            	<p class="overflow-ellipsis" >Folio : {{$p->noSerie}}</p>
 	            	<p>Tipo : {{$p->tipo->nombre}}</p>
-	            	<p class="overflow-ellipsis" >Alumno : {{$p->nombreAlumno}}</p>
+	            	<p class="overflow-ellipsis" >Usuario : {{$p->nombreAlumno}}</p>
 	                <p>Fecha : {{$p->fecha()}}</p>
 	               	<p>Tiempo de Analisis : {{$p->tiempoAnalisis}}</p>
 	            </div>

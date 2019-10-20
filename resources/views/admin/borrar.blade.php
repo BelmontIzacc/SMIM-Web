@@ -1,6 +1,6 @@
-@extends('layout.layout')
+@extends('layout.layout2')
 @section('title')
-<title>SMIM Biblioteca</title>
+<title>SMIM Borrar</title>
 @stop
 
 @section('css')
@@ -8,7 +8,7 @@
 <link href="{{asset('/Template/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css')}}" rel="stylesheet">
 <style type="text/css">
     p {
-      width: 110px;
+      width: 70px;
       padding: -5px 5px;
 
       /* BOTH of the following are required for text-overflow */
@@ -32,14 +32,55 @@
 </style>
 @stop
 @section('popUp')
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Borrar</h5>
+        </button>
+      </div>
+      <div class="modal-body">
+			<div class="body">
+                <ul class="list-group">
+                    <li class="list-group-item" id="nombreP">Nombre Proyecto: </li>
+                    <li class="list-group-item" id="folio">Folio: </li>
+                    <li class="list-group-item" id="tipo">Tipo: </li>
+                    <li class="list-group-item" id="usuario">Usuario: </li>
+                    <li class="list-group-item" id="fecha">Fecha: </li>
+                    <li class="list-group-item" id="ta">Tiempo de Analisis: </li>
+                </ul>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="proyecto" onclick="borrar();">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @stop
 @section('content')
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<?php $num = count($errors); ?>
+			@if($num != 0)
+			<div class="alert  bg-green alert-fill alert-close alert-dismissible fade in" role="alert">
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		            <span aria-hidden="true">&times;</span>
+		        </button>
+		        <ul>
+		            @foreach($errors->all() as $error)
+		                <li>{{ $error }}</li>
+		            @endforeach
+		        </ul>
+		    </div>
+			@endif
         <div class="card">
-            <div class="header"  align="center">
+            <div class="header">
                 <h2>
-                    Biblioteca
+                    Borrar proyectos analizados
                 </h2>
             </div>
             <div class="body">
@@ -59,6 +100,7 @@
                                                 <th>Folio</th>
                                                 <th>Usuario</th>
                                                 <th>Grupo</th>
+                                                <th>Accion</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -71,6 +113,7 @@
                                                 <th>Folio</th>
                                                 <th>Usuario</th>
                                                 <th>Grupo</th>
+                                                <th>Accion</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -79,12 +122,13 @@
                                             <tr>
                                                 <td><?php echo $num;?></td>
                                                 <td><p class="overflow-ellipsis" ><a class="font-bold color" href="{{asset('/proyecto')}}/{{$p->noSerie}}">{{$p->nombreProyecto}}</a></p></td>
-                                                <td>{{$p->tipo->nombre}}</td>
-                                                <td>{{$p->fecha()}}</td>
+                                                <td><p class="overflow-ellipsis" >{{$p->tipo->nombre}}</p></td>
+                                                <td><p class="overflow-ellipsis" >{{$p->fecha()}}</p></td>
                                                 <td>{{$p->tiempoAnalisis}}s</td>
                                                 <td><p class="overflow-ellipsis" ><a class="font-bold color" href="{{asset('/proyecto')}}/{{$p->noSerie}}">{{$p->noSerie}}</a></p></td>
                                                 <td><p class="overflow-ellipsis" >{{$p->nombreAlumno}}</p></td>
                                                 <td>{{$p->grupoAlumno}}</td>
+                                                <td><button type="button" class="btn bg-red btn-block btn-xs waves-effect" data-toggle="modal" data-target=".bd-example-modal-sm" onclick="proyecto({{$p}});">Borrar</button></td>
                                                 <?php $num = $num+1;?>
                                             </tr>
                                             @endforeach
@@ -101,8 +145,14 @@
         </div>
     </div>
 </div>
+
+{!!Form::open(array('url'=>'/configuracion/borrar', 'method'=>'post', 'id'=>'forms'))!!} 
+    <input type="hidden" id="borrar" name="borrar">
+{!!Form::close()!!}
+
 @stop
 @section('scripts')
+<script src="{{asset('/Template/js/custom/modal.js')}}"></script>
 <script src="{{asset('/Template/plugins/jquery-datatable/jquery.dataTables.js')}}"></script>
 <script src="{{asset('/Template/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js')}}"></script>
 <script src="{{asset('/Template/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js')}}"></script>

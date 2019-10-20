@@ -57,7 +57,7 @@
                             
                         </div>
                         <div class="col-xs-6 align-right">
-                            <a href="{{asset('/password/email')}}">Forgot Password?</a>
+                            <a href="{{asset('/password/email')}}"><small>Se te olvido la contraseña?</small></a>
                         </div>
                     </div>
                     {!!Form::close()!!}

@@ -119,6 +119,7 @@
                                             </h4>
                                             Fecha - {{$pt->fecha()}}
                                         </br>Imagenes
+                                    	</br>Total de Imagenes - {{$total}}
                                         </div>
                                     </div>
                                 </div>
