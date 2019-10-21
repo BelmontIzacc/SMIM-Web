@@ -20,6 +20,7 @@ text-decoration:none;
             <div class="header">
                 <h2>
                     <p>Regresar a : <a class="nounderline" style="color:#7f99b1;" href="{{asset('/proyecto')}}/{{$pt->noSerie}}">{{$pt->nombreProyecto}}<p></a>
+                    <small><p>Ver : <a class="nounderline" style="color:#7f99b1;" href="{{asset('/proyecto')}}/{{$pt->noSerie}}/galeria/graficas">Graficas<p></a></small>
                     <small>Tipo : {{$pt->tipo->nombre}}</small>
                     <small>Fecha : {{$pt->fecha()}}</small>
                     <small>Total de Imagenes : {{$total}}</small>

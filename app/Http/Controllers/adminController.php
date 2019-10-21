@@ -189,6 +189,7 @@ class adminController extends Controller
         @Función POST que recibe el id para borrar los datos de la base de datos
         @IBelmont
         @sice 12/10/19
+        @params Request $request = recibe el numero de serie para borrar un proyecto
     */  
     public function borrarPost(Request $request)
     {
@@ -200,7 +201,9 @@ class adminController extends Controller
         $noSerie = $request->borrar;
         $proyecto = \App\proyecto::where('noSerie','=',$noSerie)->first();
         $nombre = $proyecto->nombreProyecto;
+        $link = $proyecto->linkProyecto;
 
+        $this->borrarDirectorio($link);
         $proyecto->delete();
 
         return redirect('/configuracion/borrar')
@@ -209,6 +212,33 @@ class adminController extends Controller
                 $request->clave => 'Se borro el proyecto '.$nombre.' correctamente',
 
             ]);
+
+    }
+
+    /*
+        @Función para borrar un directorio y todo su contenido
+        @IBelmont
+        @sice 20/10/19
+        @params $directorio = ruta para borrar toda una carpeta completa
+    */  
+    public function borrarDirectorio($directorio)
+    {
+
+        foreach (glob($directorio."/*") as $archivos_directorio) {
+            
+            if(is_dir($archivos_directorio)){
+
+                $this->borrarDirectorio($archivos_directorio);
+
+            }else{
+
+                unlink($archivos_directorio);
+
+            }
+
+        }
+
+        rmdir($directorio);
 
     }
 }

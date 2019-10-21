@@ -18,6 +18,7 @@ Route::get('/resultados/palabra={palabra}/{tipo}', 'welcomeController@buscarIndi
 
 Route::get('/proyecto/{id}','welcomeController@proyecto');
 Route::get('/proyecto/{id}/galeria','welcomeController@galeria');
+Route::get('/proyecto/{id}/galeria/graficas','welcomeController@graficas');
 
 Route::get('/biblioteca', 'welcomeController@biblioteca');
 

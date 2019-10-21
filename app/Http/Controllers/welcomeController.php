@@ -345,6 +345,12 @@ class welcomeController extends Controller
         $img = $this->leerDirectorio($directorio);
         $totalImg = count($img);
 
+        $linkGrafica = ''.$proyecto->linkProyecto.'/graficas';
+        $direcGrafica = opendir($linkGrafica);
+        $grafi = array();
+        $grafi = $this->leerDirectorio($direcGrafica);
+        $totalGrafica = count($grafi);
+
         $user = null;
 
         if(Auth::user()){
@@ -361,11 +367,52 @@ class welcomeController extends Controller
             'img'   =>  $img, 
             'user'  =>  $user,
             'total' =>  $totalImg,
+            'grafica'   =>  $grafi,
+            'tg'    => $totalGrafica,
 
         ]);
 
     }
 
+
+    /*
+        @Función para mostrar las imagenes de graficas de un proyecto elegido en espesifico
+        @IBelmont
+        @sice 20/10/19
+        @params $id = noSerie de un proyecto en espesifico
+    */
+    public function graficas($id)
+    {
+
+        $index = 1;
+        $proyecto = \App\proyecto::where('noSerie','like','%'.$id.'%')->first();
+
+        $linkGrafica = ''.$proyecto->linkProyecto.'/graficas';
+        $direcGrafica = opendir($linkGrafica);
+        $grafi = array();
+        $grafi = $this->leerDirectorio($direcGrafica);
+        $totalGrafica = count($grafi);
+
+        $user = null;
+
+        if(Auth::user()){
+
+            $index = 2;
+            $user = Auth::user();
+
+        }
+
+        return view('card.graficas', [
+
+            'pt'    =>  $proyecto,
+            'index' =>  $index,
+            'user'  =>  $user,
+            'grafica'   =>  $grafi,
+            'tg'    => $totalGrafica,
+
+        ]);
+
+    }
 
     /*
         @Función para mostrar todos los proyectos en específico del sistema

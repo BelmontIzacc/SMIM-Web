@@ -29,13 +29,40 @@
     
     <style type="text/css">
         .sidebar .user-info {
-        padding: 13px 15px 12px 15px;
-        white-space: nowrap;
-        position: relative;
-        border-bottom: 1px solid #e9e9e9;
-        background: url({{asset('/Template/images/upiiz-new.png')}}) no-repeat no-repeat;
-        height: 135px;
-    }
+            padding: 13px 15px 12px 15px;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 1px solid #e9e9e9;
+            background: url({{asset('/Template/images/upiiz-new.png')}}) no-repeat no-repeat;
+            height: 135px;
+        }
+
+         /* Estilos barra (thumb) de scroll */
+        .container::-webkit-scrollbar-thumb {
+          background: #ccc;
+          border-radius: 4px;
+        }
+
+        .container::-webkit-scrollbar-thumb:active {
+          background-color: #999999;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+          background: #b3b3b3;
+          box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+        }
+
+         /* Estilos track de scroll */
+        .container::-webkit-scrollbar-track {
+          background: #e1e1e1;
+          border-radius: 4px;
+        }
+
+        .container::-webkit-scrollbar-track:hover, 
+        .container::-webkit-scrollbar-track:active {
+          background: #d4d4d4;
+        }
+
     </style>
 
     @yield('css')

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mi fondo se mueve!</title>
+  <title>SMIM Creditos</title>
   <script type="text/javascript">
     window.onload = function() {
 	  // onmousemove es el evento que detecta cada movimiento

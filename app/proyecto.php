@@ -55,6 +55,10 @@ class proyecto extends Model
         return '/'.$this->linkProyecto.'/img/'.$num.'.png';
     }
 
+    public function graficas($nombre){
+        return '/'.$this->linkProyecto.'/graficas/'.$nombre;
+    }
+
     public function video(){
         $vidDirectorio = opendir(''.$this->linkProyecto.'/vid'); //ruta actual
         $vid = array();
