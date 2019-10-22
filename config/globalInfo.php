@@ -6,5 +6,6 @@
     'nombreUpiiz2' => 'UPIIZ-IPN',
     'nombreUpiiz3' => 'Campus Zacatecas',
     'nombreUpiiz4' => 'Unidad Profesional Interdisciplinaria de Ingeniería',
-    'folio' => 'holo',
+    'logo'	=>	'/Template/images/perfil/logo.png',
+    'fondo'	=>	'/Template/images/perfil/fondo.png',
   ];

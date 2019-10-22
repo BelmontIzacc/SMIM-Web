@@ -102,7 +102,7 @@
             <div class="profile-header">&nbsp;</div>
             <div class="profile-body">
                 <div class="image-area">
-                	<img src="{{asset('/Template/images/user-lg.jpg')}}" alt="AdminBSB - Profile Image">
+                	<img src="{{asset('/Template/images/perfil/mono.png')}}" width="128" height="128" alt="AdminBSB - Profile Image">
                 </div>
                 <div class="content-area">
                     <h3></h3>
@@ -190,7 +190,7 @@
                                     <div class="media">
                                         <div class="media-left">
                                             <a href="#">
-                                                <img src="{{asset('/Template/images/user-lg.jpg')}}"> 
+                                                <img src="{{asset('/Template/images/perfil/mono.png')}}"> 
                                             </a>
                                         </div>
                                         <div class="media-body">
@@ -294,7 +294,7 @@
                                     <div class="media">
                                         <div class="media-left">
                                             <a href="#">
-                                            	<img src="{{asset('/Template/images/user-lg.jpg')}}">
+                                            	<img src="{{asset('/Template/images/perfil/mono.png')}}">
                                             </a>
                                         </div>
                                         <div class="media-body">
@@ -335,7 +335,7 @@
 							        <div class="media">
 							            <div class="media-left">
 							                <a href="#">
-							                	<img src="{{asset('/Template/images/user-lg.jpg')}}">
+							                	<img src="{{asset('/Template/images/perfil/mono.png')}}">
 							                </a>
 							            </div>
 							            <div class="media-body">
@@ -424,7 +424,7 @@
 							        <div class="media">
 							            <div class="media-left">
 							                <a href="#">
-							                	<img src="{{asset('/Template/images/user-lg.jpg')}}">
+							                	<img src="{{asset('/Template/images/perfil/mono.png')}}">
 							                </a>
 							            </div>
 							            <div class="media-body">

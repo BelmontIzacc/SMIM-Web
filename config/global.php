@@ -3,6 +3,9 @@
 return [
     'folio' => 123,
     //Constantes
+    'logo'  =>  '/Template/images/perfil/logo.png',
+    'fondo' =>  '/Template/images/perfil/fondo.png',
+    
     'nombresAntecedentes' => array(
         'Ninguno',
         'Padres',
