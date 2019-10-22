@@ -20,6 +20,8 @@ Route::get('/proyecto/{id}','welcomeController@proyecto');
 Route::get('/proyecto/{id}/galeria','welcomeController@galeria');
 Route::get('/proyecto/{id}/galeria/graficas','welcomeController@graficas');
 
+Route::get('/proyecto/{id}/descargar','welcomeController@descargar');
+
 Route::get('/biblioteca', 'welcomeController@biblioteca');
 
 //-----------------------------------------------------------------------------------//

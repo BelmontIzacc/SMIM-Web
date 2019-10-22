@@ -267,42 +267,44 @@ class welcomeController extends Controller
         $proyecto = \App\proyecto::where('noSerie','like','%'.$id.'%')->first();
         $nombre = $proyecto->linkProyecto;
 
+        //imagenes
         $directorio = opendir(''.$nombre."/img");
         $img = array();
         $img = $this->leerDirectorio($directorio);
-        $totalImg = count($img);
+        $img = $this->validarTam($img);
 
         //Coordenadas
         $fp = fopen(''.$nombre."/coordenada/coordenada.txt", "r");
         $coord = array();
         $coord = $this->leerArchivo($fp,$coord);
+        $coord = $this->validarTam($coord);
 
         //estadistica por punto de interes
         $dEstadistica = opendir(''.$nombre."/estadistica");
         $est = array();
         $est = $this->leerMultipleArchivo($nombre,$dEstadistica,"/estadistica",$est);
-
-        $tamEs = count($est);
-
-        if($tamEs == 0){
-
-            $est = null;
-
-        }
+        $est = $this->validarTam($est);
 
         //promedio por imagen
         $dImagen = opendir(''.$nombre."/estadisticaXimagen");
         $ex = array();
         $ex = $this->leerMultipleArchivo($nombre,$dImagen,"/estadisticaXimagen",$ex);
+        $ex = $this->validarTam($ex);
 
-        $tamEx = count($ex);
+        //temperatura por coordenada
+        $dcoord = opendir(''.$nombre."/txt");
+        $txt = array();
+        $txt = $this->leerTemperaturaAchivo($nombre,$dcoord,"/txt",$txt);
+        $txt = $this->validarTam($txt);
+        $tamTxT = count($txt[0]);
+        $tcontador = array();
 
-        if($tamEx == 0){
-
-            $ex = null;
-
+        for ($i=0; $i < $tamTxT ; $i++) { 
+            $tcontador[] = " ".$i;
         }
-        
+
+        $txt = json_encode($txt);
+
         $user = null;
 
         if(Auth::user()){
@@ -312,6 +314,7 @@ class welcomeController extends Controller
 
         }
 
+        
         return view('card.individual', [
 
             'pt'    =>  $proyecto,
@@ -321,7 +324,8 @@ class welcomeController extends Controller
             'dImagen'   =>  $ex,
             'dEsta' =>  $est,
             'user'  => $user,
-            'total' =>  $totalImg,
+            'txt'   => $txt,
+            'nc'    => $tcontador,
 
         ]);
 
@@ -374,6 +378,66 @@ class welcomeController extends Controller
 
     }
 
+    /*
+        @Función para descargar los datos de la temperatura de un proyecto elegido en espesifico
+        @IBelmont
+        @sice 21/10/19
+        @params $id = noSerie de un proyecto en espesifico
+    */
+    public function descargar($id)
+    {
+
+        $index = 1;
+        $proyecto = \App\proyecto::where('noSerie','like','%'.$id.'%')->first();
+        $nombre = $proyecto->linkProyecto;
+
+        $link = ''.$proyecto->linkProyecto.'/txt';
+        $user = null;
+
+        //Coordenadas
+        $fp = fopen(''.$nombre."/coordenada/coordenada.txt", "r");
+        $coord = array();
+        $coord = $this->leerArchivo($fp,$coord);
+        $coord = $this->validarTam($coord);
+
+        //temperatura por coordenada
+        $dcoord = opendir(''.$nombre."/txt");
+        $txt = array();
+        $txt = $this->leerTemperaturaAchivo($nombre,$dcoord,"/txt",$txt);
+        $txt = $this->validarTam($txt);
+        $tamTxT = count($txt[0]);
+        $tcontador = array();
+
+        for ($i=0; $i < $tamTxT ; $i++) { 
+            $tcontador[] = " ".$i;
+        }
+
+        $txt = json_encode($txt);
+
+        if(Auth::user()){
+
+            $index = 2;
+            $user = Auth::user();
+
+        }
+
+        $direcGrafica = opendir($link);
+        $numtxt = array();
+        $numtxt = $this->leerDirectorio($direcGrafica);
+
+        return view('card.descargar', [
+
+            'index' =>  $index,
+            'pt'    =>  $proyecto,
+            'link'  =>  $link,
+            'txt'   =>  $txt,
+            'cord'  =>  $coord,
+            'nc'    => $tcontador,
+            'archivo'   => $numtxt,
+
+        ]);
+
+    }
 
     /*
         @Función para mostrar las imagenes de graficas de un proyecto elegido en espesifico
@@ -591,6 +655,25 @@ class welcomeController extends Controller
     }
 
     /*
+        @Función que el array contenga algo si no devuelve un null
+        @IBelmont
+        @sice 21/10/19
+        @params $array = contenido a validar
+    */    
+    public function validarTam($array)
+    {
+
+        $tam = count($array);
+
+        if( $tam == 0 ){
+            return null;
+        }
+
+        return $array;
+
+    }
+
+    /*
         @Función que devuelve la vista de no encontrado
         @IBelmont
         @sice 20/09/19
@@ -601,6 +684,58 @@ class welcomeController extends Controller
         $index = 4;
         return view('errors.unavailable', ['index'=>$index]);
 
+    }
+
+    /*
+        @Función leer multiples archivos de un directorio de temperatura por coordenada
+        @IBelmont
+        @sice 21/10/19
+        @params $nombre = nombre de carpeta principal, $arreglo = variable donde se almacenara las lineas del texto
+        $directorio = subcarpeta que le leeran los archivos dentro, $carpeta = leer archivo por archivo del sub directorio
+    */
+    public function leerTemperaturaAchivo($nombre, $directorio, $carpeta,$arreglo)
+    {
+        while ($archivo = readdir($directorio))
+        {
+
+            if (is_dir($archivo))
+            {
+                
+            }
+            else
+            {
+
+                $fp = fopen(''.$nombre.$carpeta.""."/".$archivo, "r");
+
+                $numero = explode(".txt", $archivo);
+                $numero = $numero[0];
+
+                $aux = array(); 
+                
+                $i = 0;
+
+                while (!feof($fp)){
+
+                    $linea = fgets($fp);
+
+                    if($i>0){
+
+                         $primer = explode(",", $linea);
+                         $aux[$primer[0]] = $primer[1].','.$primer[2].','.$primer[3]; 
+
+                    }
+
+                    $i++;
+
+                }
+
+                $arreglo[$numero] = $aux;
+
+            }
+
+        }
+
+        return $arreglo;
     }
 
 }

@@ -1,0 +1,2 @@
+nombreImagen,celsius,kelvin,farenheit
+12,307.8,580.95,586.0400000000001

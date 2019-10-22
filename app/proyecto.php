@@ -24,7 +24,6 @@ class proyecto extends Model
     }
     
     public function imagen(){
-        //"/".$p->linkProyecto."/img/1.jpg"
         $imgDirectorio = opendir(''.$this->linkProyecto.'/img'); //ruta actual
         $img = array();
 
@@ -44,7 +43,6 @@ class proyecto extends Model
 
         $tam = count($img);
         if($tam == 0){
-            //return '/Template/images/Video-no.jpg';
             return '/Template/images/imagenNo.png';
         }else{
             return '/'.$this->linkProyecto.'/img/'.$img[0];
@@ -79,7 +77,6 @@ class proyecto extends Model
 
         $tam = count($vid);
         if($tam == 0){
-            //return '/Template/images/Video-no.jpg';
             return null;
         }else{
             return '/'.$this->linkProyecto.'/vid/'.$vid[0];
