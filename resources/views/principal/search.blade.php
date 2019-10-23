@@ -63,7 +63,7 @@
 		 	if( count($ap) != 0):
 		?>
 		 		<a href="{{asset('/resultados/palabra=')}}{{$palabra}}/NombreAlumno" class="list-group-item">
-                    <span class="badge bg-orange">Resultados : {{$ap->count()}}</span>Nombre del Alumno
+                    <span class="badge bg-orange">Resultados : {{$ap->count()}}</span>Nombre del Usuario
                 </a>
         <?php 
     		endif; 
@@ -73,7 +73,7 @@
 		 	if( count($gp) != 0):
 		?>
 		 		<a href="{{asset('/resultados/palabra=')}}{{$palabra}}/GrupoAlumno" class="list-group-item">
-                    <span class="badge bg-pink">Resultados : {{$gp->count()}}</span>Grupo del Alumno
+                    <span class="badge bg-pink">Resultados : {{$gp->count()}}</span>Grupo del Usuario
                 </a>
         <?php 
     		endif; 
@@ -82,7 +82,7 @@
 		<?php 	
 		 	if( count($tip) != 0):
 		?>
-		 		<a href="{{asset('/resultados/palabra=')}}{{$palabra}}/TipoProyecto/" class="list-group-item">
+		 		<a href="{{asset('/resultados/palabra=')}}{{$palabra}}/TipoProyecto" class="list-group-item">
                     <span class="badge bg-purple">Resultados : {{$tip->count()}}</span>Tipo de Proyecto
                 </a>
         <?php 

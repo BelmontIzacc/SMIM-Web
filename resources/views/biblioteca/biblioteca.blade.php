@@ -29,6 +29,10 @@
     .color{
         color : #008080;
     }
+
+    .pagination li.active a {
+        background-color: #008080;
+    }
 </style>
 @stop
 @section('popUp')

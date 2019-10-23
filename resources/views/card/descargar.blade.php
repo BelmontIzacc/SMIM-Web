@@ -24,6 +24,10 @@
 	    -ms-border-radius: 50%;
 	    border-radius: 50%;
 	}
+	a.nounderline:link
+    {
+    	text-decoration:none;
+    }
 </style>
 
 @stop
@@ -165,12 +169,12 @@
                                 <div class="panel-heading">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a href="#">
+                                            <a>
                                                 <img src="{{asset('/Template/images/user-lg.jpg')}}"> 
                                             </a>
                                         </div>
                                         <div class="media-body">
-	                                            <p>Regresar a : <a class="nounderline" style="color:#7f99b1;" href="{{asset('/proyecto')}}/{{$pt->noSerie}}">{{$pt->nombreProyecto}}<p></a>
+	                                            <h4><p>Regresar a : <a class="nounderline" style="color:#008080;" href="{{asset('/proyecto')}}/{{$pt->noSerie}}">{{$pt->nombreProyecto}}<p></a></h4>
 	                                            Fecha - {{$pt->fecha()}}
 	                                        </br>Coordenadas y temperatura
 	                                    	</br><small>Click en el numero de coordenada para mas información</small>
@@ -203,7 +207,7 @@
 								                                        </td>
 								                                        <td>
 								                                        	<?php $l = $link."/".$a; ?>
-								                                        	<a href="{{asset('')}}<?php echo $l;?>" download="Temperatura_Coordenada<?php echo $num;?>.txt">Descargar</a>
+								                                        	<a href="{{asset('')}}<?php echo $l;?>" style="color: #008080;" download="Temperatura_Coordenada<?php echo $num;?>.txt">Descargar</a>
 								                                        </td>
 								                                    </tr>
 								                                    <?php $num = $num + 1; ?>

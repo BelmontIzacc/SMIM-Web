@@ -29,6 +29,10 @@
     .color{
         color : #008080;
     }
+
+    .pagination li.active a {
+        background-color: #008080;
+    }
 </style>
 @stop
 @section('popUp')
@@ -54,7 +58,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="proyecto" onclick="borrar();">Borrar</button>
+        <button type="button" style="background-color: #008080; color: #FFFFFF;" class="btn" id="proyecto" onclick="borrar();">Borrar</button>
       </div>
     </div>
   </div>
@@ -128,7 +132,7 @@
                                                 <td><p class="overflow-ellipsis" ><a class="font-bold color" href="{{asset('/proyecto')}}/{{$p->noSerie}}">{{$p->noSerie}}</a></p></td>
                                                 <td><p class="overflow-ellipsis" >{{$p->nombreAlumno}}</p></td>
                                                 <td>{{$p->grupoAlumno}}</td>
-                                                <td><button type="button" class="btn bg-red btn-block btn-xs waves-effect" data-toggle="modal" data-target=".bd-example-modal-sm" onclick="proyecto({{$p}});">Borrar</button></td>
+                                                <td><button type="button" style="background-color: #00804A; color: #FFFFFF;" class="btn btn-block btn-xs waves-effect" data-toggle="modal" data-target=".bd-example-modal-sm" onclick="proyecto({{$p}});">Borrar</button></td>
                                                 <?php $num = $num+1;?>
                                             </tr>
                                             @endforeach

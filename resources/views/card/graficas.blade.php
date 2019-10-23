@@ -5,10 +5,10 @@
 @section('css')
 <link href="{{asset('/Template/plugins/light-gallery/css/lightgallery.css')}}" rel="stylesheet">
 <style type="text/css">
-a.nounderline:link
-{
-text-decoration:none;
-}
+    a.nounderline:link
+    {
+    text-decoration:none;
+    }
 </style>
 @stop
 @section('popUp')
@@ -19,8 +19,8 @@ text-decoration:none;
         <div class="card">
             <div class="header">
                 <h2>
-                    <p>Regresar a : <a class="nounderline" style="color:#7f99b1;" href="{{asset('/proyecto')}}/{{$pt->noSerie}}">{{$pt->nombreProyecto}}<p></a>
-                    <small><p>Regresar a : <a class="nounderline" style="color:#7f99b1;" href="{{asset('/proyecto')}}/{{$pt->noSerie}}/galeria">Galeria<p></a></small>
+                    <p>Regresar a : <a class="nounderline" style="color:#008080;" href="{{asset('/proyecto')}}/{{$pt->noSerie}}">{{$pt->nombreProyecto}}<p></a>
+                    <small><p>Regresar a : <a class="nounderline" style="color:#008080;" href="{{asset('/proyecto')}}/{{$pt->noSerie}}/galeria">Galeria<p></a></small>
                     <small>Tipo : {{$pt->tipo->nombre}}</small>
                     <small>Fecha : {{$pt->fecha()}}</small>
                     <small>Total de Graficas : {{$tg}}</small>

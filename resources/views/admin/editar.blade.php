@@ -21,7 +21,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button onclick="editar();" type="button" class="btn btn-primary">Guardar Cambios</button>
+        <button onclick="editar();" style="background-color: #008080; color: #FFFFFF;" type="button" class="btn">Guardar Cambios</button>
       </div>
     </div>
   </div>
@@ -128,7 +128,7 @@
 										<tr>
 	                                        <th scope="row"><?php echo $num; ?></th>
 	                                        <td>{{$t->nombre}}</td>
-	                                        <td><button type="button" class="btn bg-red btn-block btn-xs waves-effect"  onclick="borrar({{$t}});" disabled="">Eliminar</button></td>
+	                                        <td><button type="button" style="background-color: #00804A; color: #FFFFFF;" class="btn btn-block btn-xs waves-effect"  onclick="borrar({{$t}});" disabled="">Eliminar</button></td>
 	                                        <?php $num = $num+1;?>
 	                                    </tr>
 										@endforeach
@@ -151,7 +151,8 @@
 	            	</div>
 	            	<div class="col-md-2"></div>
 	            </div>
-	            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Guardar</button>
+	            <button type="button" class="btn bg-teal btn-block waves-effect" data-toggle="modal" data-target=".bd-example-modal-sm">
+	            Guardar</button>
 	        </div>
 	    </div>
 	</div>

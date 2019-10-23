@@ -47,7 +47,7 @@
 	        <div class="card">
 	            <div class="header"  align="center">
 	                <h2>
-	                    <a href="{{asset('/proyecto')}}/{{$p->noSerie}}"><img aling='center' class="js-animating-object img-responsive animated zoomIn thumbnail" src="{{$p->imagen()}}" border='0' width='75%' height='75%'></a>
+	                    <a href="{{asset('/proyecto')}}/{{$p->noSerie}}"><img aling='center' class="js-animating-object img-responsive animated zoomIn thumbnail" src="{{asset('/')}}/{{$p->imagen()}}" border='0' width='75%' height='75%'></a>
 	                    <a href="{{asset('/proyecto')}}/{{$p->noSerie}}"><small><p class="overflow-ellipsis">{{$p->nombreProyecto}}<p></small></a>
 	                </h2>
 	            </div>

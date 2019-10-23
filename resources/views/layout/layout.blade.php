@@ -101,7 +101,7 @@
             <i class="material-icons">close</i>
         </div>
     </div>
-    {!!Form::open(array('url'=>'/', 'method'=>'post', 'id'=>'form'))!!} 
+    {!!Form::open(array('url'=>'/resultados', 'method'=>'post', 'id'=>'form'))!!} 
         <input type="hidden" id="busqueda" name="busqueda">
     {!!Form::close()!!}
 

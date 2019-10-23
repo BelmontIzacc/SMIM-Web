@@ -73,7 +73,7 @@
 		 	if( count($gp) != 0):
 		?>
 		 		<a href="{{asset('/resultados/palabra=')}}{{$palabra}}/GrupoAlumno" class="list-group-item">
-                    <span class="badge bg-pink">{{$gp->count()}}</span>Grupo del Alumno
+                    <span class="badge bg-pink">{{$gp->count()}}</span>Grupo del Usuario
                 </a>
         <?php 
     		endif; 
@@ -82,7 +82,7 @@
 		<?php 	
 		 	if( count($tip) != 0):
 		?>
-		 		<a href="{{asset('/resultados/palabra=')}}{{$palabra}}/TipoProyecto/" class="list-group-item">
+		 		<a href="{{asset('/resultados/palabra=')}}{{$palabra}}/TipoProyecto" class="list-group-item">
                     <span class="badge bg-purple">{{$tip->count()}}</span>Tipo de Proyecto
                 </a>
         <?php 
@@ -97,7 +97,7 @@
 	        <div class="card"> 
 	            <div class="header"  align="center">
 	                <h2>
-	                    <a href="{{asset('/proyecto')}}/{{$o->noSerie}}"><img aling='center' class="js-animating-object img-responsive animated zoomIn thumbnail" src="{{$o->imagen()}}" border='0' width='75%' height='75%'></a>
+	                    <a href="{{asset('/proyecto')}}/{{$o->noSerie}}"><img aling='center' class="js-animating-object img-responsive animated zoomIn thumbnail" src="{{asset('/')}}/{{$o->imagen()}}" border='0' width='75%' height='75%'></a>
 	                    <a href="{{asset('/proyecto')}}/{{$o->noSerie}}"><small>{{$o->nombreProyecto}}</small></a>
 	                </h2>
 	            </div>

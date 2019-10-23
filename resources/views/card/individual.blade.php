@@ -24,6 +24,9 @@
 	    -ms-border-radius: 50%;
 	    border-radius: 50%;
 	}
+    .pagination li.active a {
+        background-color: #008080;
+    }
 </style>
 
 @stop
@@ -102,7 +105,7 @@
             <div class="profile-header">&nbsp;</div>
             <div class="profile-body">
                 <div class="image-area">
-                	<img src="{{asset('/Template/images/perfil/mono.png')}}" width="128" height="128" alt="AdminBSB - Profile Image">
+                	<img src="{{asset('/Template/images/perfil/mono.png')}}" width="128" height="128" alt="SMIM">
                 </div>
                 <div class="content-area">
                     <h3></h3>
@@ -171,7 +174,7 @@
                 </ul>
                 <div class="media-body" align="right">
                     <small><a href="{{asset('/proyecto/')}}/{{$pt->noSerie}}/descargar">
-                        <span>Ir a descargas</span>
+                        <span style="color: #008080;">Ir a descargas</span>
                     </a></small>
                 </div>
             </div> <!-- fin del body -->
@@ -189,13 +192,13 @@
                                 <div class="panel-heading">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a href="#">
+                                            <a>
                                                 <img src="{{asset('/Template/images/perfil/mono.png')}}"> 
                                             </a>
                                         </div>
                                         <div class="media-body">
                                             <h4 class="media-heading">
-                                                <a>{{$pt->nombreProyecto}}</a>
+                                                <p>{{$pt->nombreProyecto}}</p>
                                             </h4>
                                             Fecha - {{$pt->fecha()}}
                                         </br>Imagenes
@@ -293,13 +296,13 @@
                                 <div class="panel-heading">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a href="#">
+                                            <a>
                                             	<img src="{{asset('/Template/images/perfil/mono.png')}}">
                                             </a>
                                         </div>
                                         <div class="media-body">
                                             <h4 class="media-heading">
-                                                <a>{{$pt->nombreProyecto}}</a>
+                                                <p>{{$pt->nombreProyecto}}</p>
                                             </h4>
                                             Fecha - {{$pt->fecha()}}
                                             </br>Video
@@ -334,13 +337,13 @@
 							    <div class="panel-heading">
 							        <div class="media">
 							            <div class="media-left">
-							                <a href="#">
+							                <a>
 							                	<img src="{{asset('/Template/images/perfil/mono.png')}}">
 							                </a>
 							            </div>
 							            <div class="media-body">
 							                <h4 class="media-heading">
-							                    <a>{{$pt->nombreProyecto}}</a>
+							                    <p>{{$pt->nombreProyecto}}</p>
 							                </h4>
 							                Fecha - {{$pt->fecha()}}
 							                </br>Estadistica por Coordenada.
@@ -423,13 +426,13 @@
 							    <div class="panel-heading">
 							        <div class="media">
 							            <div class="media-left">
-							                <a href="#">
+							                <a>
 							                	<img src="{{asset('/Template/images/perfil/mono.png')}}">
 							                </a>
 							            </div>
 							            <div class="media-body">
 							                <h4 class="media-heading">
-							                    <a>{{$pt->nombreProyecto}}</a>
+							                    <p>{{$pt->nombreProyecto}}</p>
 							                </h4>
 							                Fecha - {{$pt->fecha()}}
 							                </br>Estadistica promedio de las coordenadas en cada imagen.

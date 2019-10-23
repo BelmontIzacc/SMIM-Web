@@ -13,7 +13,7 @@
 
 //-----------------------------------------------------------------------------------//
 Route::get('/', 'welcomeController@index');
-Route::post('/', 'welcomeController@buscar');
+Route::post('/resultados', 'welcomeController@buscar');
 Route::get('/resultados/palabra={palabra}/{tipo}', 'welcomeController@buscarIndi');
 
 Route::get('/proyecto/{id}','welcomeController@proyecto');
