@@ -51,7 +51,7 @@
 	        </div>
 	        <div class="body" align="center">
 	        	<h2 class="card-inside-title" align="center">
-                    Numero de Coordenadas o Puntos de Interes
+                    Numero máximo de Coordenadas o Puntos de Interes
                     <small>Habilita la casilla para poder cambiar el valor.</small>
                 </h2>
 	            <div class="row clearfix">
@@ -70,18 +70,29 @@
 	            	<div class="col-md-5"></div>
 	            </div>
 
+				<?php if( $ini['numImagenes']['status'] == 'disabled' ) : ?>
+
 	            <h2 class="card-inside-title" align="center">
-                    Aun no disponible ...
-                    <small>Por el momento no se pueden cambiar las opciones siguientes.</small>
+                    {{$ini['numImagenes']['cabezera']}}
+                    <small>{{$ini['numImagenes']['cuerpo']}}</small>
                 </h2>
 
-	            <h2 class="card-inside-title" align="center">Numero de Imagenes a analizar</h2>
+                <?php endif ?>
+
+	            <h2 class="card-inside-title" align="center">
+	            	Numero máximo de Imagenes a analizar
+	            	<?php if( $ini['numImagenes']['status'] != 'disabled' ) : ?>
+						<small> {{$ini['numImagenes']['cabezera']}} </small>
+					<?php endif ?>
+	            </h2>
+				
+
 	            <div class="row clearfix">
 	            	<div class="col-md-5"></div>
 	                <div class="col-md-2">
 	                    <div class="input-group input-group-lg">
 	                        <span class="input-group-addon">
-	                            <input type="checkbox" class="filled-in" id="ig_checkbox2" name="campoImagenes" onclick="imagenes('imagenes');" disabled="">
+	                            <input type="checkbox" class="filled-in" id="ig_checkbox2" name="campoImagenes" onclick="imagenes('imagenes');" {{$ini['numImagenes']['status']}}>
 	                            <label for="ig_checkbox2"></label>
 	                        </span>
 	                        <div class="form-line">
@@ -91,13 +102,30 @@
 	                </div>
 	            	<div class="col-md-5"></div>
 	            </div>
-	            <h2 class="card-inside-title" align="center">Duracion del video en minutos</h2>
+
+
+				<?php if( $ini['duracionVideo']['status'] == 'disabled' ) : ?>
+
+	            <h2 class="card-inside-title" align="center">
+                    {{$ini['duracionVideo']['cabezera']}}
+                    <small>{{$ini['duracionVideo']['cuerpo']}}</small>
+                </h2>
+
+                <?php endif ?>
+
+	            <h2 class="card-inside-title" align="center">
+	            	Duracion máxima del video en minutos
+	            	<?php if( $ini['duracionVideo']['status'] != 'disabled' ) : ?>
+						<small> {{$ini['duracionVideo']['cabezera']}} </small>
+					<?php endif ?>
+	            </h2>
+
 	            <div class="row clearfix">
 	            	<div class="col-md-5"></div>
 	                <div class="col-md-2">
 	                    <div class="input-group input-group-lg">
 	                        <span class="input-group-addon">
-	                            <input type="checkbox" class="filled-in" id="ig_checkbox3" name="campoVideo" onclick="video('video');" disabled="">
+	                            <input type="checkbox" class="filled-in" id="ig_checkbox3" name="campoVideo" onclick="video('video');" {{$ini['duracionVideo']['status']}}>
 	                            <label for="ig_checkbox3"></label>
 	                        </span>
 	                        <div class="form-line">
@@ -107,8 +135,24 @@
 	                </div>
 	            	<div class="col-md-5"></div>
 	            </div>
-					
-	            <h2 class="card-inside-title" align="center">Tipo de proyecto</h2>
+				
+
+				<?php if( $ini['tipo']['status'] == 'disabled' ) : ?>
+
+	            <h2 class="card-inside-title" align="center">
+                    {{$ini['tipo']['cabezera']}}
+                    <small>{{$ini['tipo']['cuerpo']}}</small>
+                </h2>
+
+                <?php endif ?>
+
+	            <h2 class="card-inside-title" align="center">
+	            	Tipo de proyecto
+	            	<?php if( $ini['tipo']['status'] != 'disabled' ) : ?>
+						<small> {{$ini['tipo']['cabezera']}} </small>
+					<?php endif ?>
+	            </h2>
+
 	            <div class="row clearfix">
 	            	<div class="col-md-2"></div>
 	                <div class="col-md-4">
@@ -128,7 +172,7 @@
 										<tr>
 	                                        <th scope="row"><?php echo $num; ?></th>
 	                                        <td>{{$t->nombre}}</td>
-	                                        <td><button type="button" style="background-color: #00804A; color: #FFFFFF;" class="btn btn-block btn-xs waves-effect"  onclick="borrar({{$t}});" disabled="">Eliminar</button></td>
+	                                        <td><button type="button" style="background-color: #00804A; color: #FFFFFF;" class="btn btn-block btn-xs waves-effect"  onclick="borrar({{$t}});" {{$ini['tipo']['status']}}>Eliminar</button></td>
 	                                        <?php $num = $num+1;?>
 	                                    </tr>
 										@endforeach
@@ -141,7 +185,7 @@
 	            		<p>Agregar nuevo tipo:</p>
 	                    <div class="input-group input-group-lg" style="line-height: 230px;">
 	                        <span class="input-group-addon">
-	                            <input type="checkbox" class="filled-in" id="ig_checkbox4" name="campoTipo" onclick="tipo('tipo');" disabled="">
+	                            <input type="checkbox" class="filled-in" id="ig_checkbox4" name="campoTipo" onclick="tipo('tipo');" {{$ini['tipo']['status']}}>
 	                            <label for="ig_checkbox4"></label>
 	                        </span>
 	                        <div class="form-line">
@@ -151,6 +195,66 @@
 	            	</div>
 	            	<div class="col-md-2"></div>
 	            </div>
+
+				<?php if( $ini['tiempo']['status'] == 'disabled' ) : ?>
+
+	            <h2 class="card-inside-title" align="center">
+                    {{$ini['tiempo']['cabezera']}}
+                    <small>{{$ini['tiempo']['cuerpo']}}</small>
+                </h2>
+
+                <?php endif ?>
+
+	            <h2 class="card-inside-title" align="center">
+	            	Tiempo del procesamiento de video
+	            	<?php if( $ini['tiempo']['status'] != 'disabled' ) : ?>
+						<small> {{$ini['tiempo']['cabezera']}} </small>
+					<?php endif ?>
+	            </h2>
+
+	            <div class="row clearfix">
+	            	<div class="col-md-2"></div>
+	                <div class="col-md-4">
+	                	<p>Lista de tiempo para el proceso del video en el sistema:</p>	
+							<div class="body table-responsive">
+	                            <table class="table">
+	                                <thead>
+	                                    <tr>
+	                                        <th>#</th>
+	                                        <th>Tiempo</th>
+	                                        <th>Accion</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                	<?php $num = 1;?>
+										@foreach($dv as $t)
+										<tr>
+	                                        <th scope="row"><?php echo $num; ?></th>
+	                                        <td align="center">{{$t}}</td>
+	                                        <td><button type="button" style="background-color: #00804A; color: #FFFFFF;" class="btn btn-block btn-xs waves-effect"  onclick="borrarTiempo({{$t}});" {{$ini['tiempo']['status']}}>Eliminar</button></td>
+	                                        <?php $num = $num+1;?>
+	                                    </tr>
+										@endforeach
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                </div>
+
+	            	<div class="col-md-4">
+	            		<p>Agregar nuevo tiempo:</p>
+	                    <div class="input-group input-group-lg" style="line-height: 230px;">
+	                        <span class="input-group-addon">
+	                            <input type="checkbox" class="filled-in" id="ig_checkbox5" name="tiempoTipo" onclick="tiempo('tiempo');" {{$ini['tiempo']['status']}}>
+	                            <label for="ig_checkbox5"></label>
+	                        </span>
+	                        <div class="form-line">
+	                            {!!Form::number('tiempo', '10', array('class'=>'form-control', 'id'=>'tiempo', 'placeholder'=>'Ingresa el tiempo', 'disabled' => 'true', 'style'=>'text-align:center'))!!}
+	                        </div>
+	                    </div>
+	            	</div>
+	            	<div class="col-md-2"></div>
+
+
 	            <button type="button" class="btn bg-teal btn-block waves-effect" data-toggle="modal" data-target=".bd-example-modal-sm">
 	            Guardar</button>
 	        </div>
@@ -164,6 +268,8 @@
     <input type="hidden" id="nVideo" name="nVideo">
     <input type="hidden" id="nTipo" name="nTipo">
     <input type="hidden" id="nTipoBorrar" name="nTipoBorrar">
+    <input type="hidden" id="nTiempo" name="nTiempo">
+    <input type="hidden" id="nTiempoBorrar" name="nTiempoBorrar">
 {!!Form::close()!!}
 
 @stop

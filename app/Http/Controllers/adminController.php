@@ -54,7 +54,17 @@ class adminController extends Controller
         $config = \App\config::where('id','=','1')->first();
 
         $tipo = \App\tipo::all();
-        $nombre = $tipo->first()->nombre;
+        $nombre = $tipo->first();
+
+        if( $nombre != null){
+            $nombre = $tipo->first()->nombre;
+        }else{
+            $nombre = "";
+        }
+        
+        $pVideo = explode(",",$config->procesamientoVid);
+
+        $inicio = $this->validarActivo();
 
         return view('admin.editar', [
 
@@ -62,6 +72,8 @@ class adminController extends Controller
            'config' => $config,
            'tipo'   =>  $tipo,
            'tipoN'  => $nombre,
+           'dv' =>  $pVideo,
+           'ini'    =>  $inicio,
 
         ]);
 
@@ -82,6 +94,7 @@ class adminController extends Controller
             'nVideo' => 'required',
             'nTipo' => 'required',
             'nTipoBorrar' => 'required',
+            'nTiempo'   =>  'required',
         ]);
 
         $config = \App\config::find(1);
@@ -123,7 +136,7 @@ class adminController extends Controller
         $nTipo = strtolower($nTipo);
         $nTipo = ucfirst($nTipo);
         $t = \App\tipo::where('nombre','=',$nTipo)->exists();
-        
+
         if($nTipo != "-1"){
             if(!$t){
 
@@ -136,11 +149,47 @@ class adminController extends Controller
             }
         }
 
+
+        $tiempo = $config->procesamientoVid;
+        $nTiempo = $request->nTiempo;
+
+        if($nTiempo != "-1"){
+
+            $pVideo = explode(",",$config->procesamientoVid);
+            $existe = false;
+            foreach ($pVideo as $p) {
+                if($nTiempo == $p){
+                    $existe = true;
+                }
+            }
+
+            if($existe == false){
+                $tiempo = $tiempo.",".$nTiempo;
+                $this->guardar($config,'procesamientoVid', $tiempo);
+
+            }
+        }
+
         $ntb = $request->nTipoBorrar;
 
         if($ntb != "-1"){
             $tipoC = \App\tipo::find($ntb);
             $tipoC->delete();
+        }
+
+        $num = $request->nTiempoBorrar;
+
+        if($num != "-1"){
+            $pVideo = explode(",",$config->procesamientoVid);
+            $existe = "";
+            foreach ($pVideo as $p) {
+                if($num != $p){
+                    $existe = $existe."".$p.",";
+                }
+            }
+
+            $existe = substr($existe, 0, -1);
+            $this->guardar($config,'procesamientoVid', $existe);
         }
 
         return redirect('/configuracion/editar')
@@ -241,4 +290,125 @@ class adminController extends Controller
         rmdir($directorio);
 
     }
+
+    /*
+        @Función para activar o desactivar botones en union a sus mensajes para editar el sistema SMIM-PC
+        @IBelmont
+        @sice 12/11/19
+    */ 
+
+    public function validarActivo()
+    {
+
+        $resultado = [];
+
+        $activo = $this->crearArray();
+        
+        foreach ($activo as $k) {
+
+            if($k[1] == "disabled"){
+                
+                $resultado[$k[0]]["cabezera"] = $this->mensajeNoDisponible()["cabezera"];
+                $resultado[$k[0]]["cuerpo"] = $this->mensajeNoDisponible()["cuerpo"]; 
+                $resultado[$k[0]]["status"] = $k[1];
+
+            }else{
+
+                $resultado[$k[0]]["cabezera"] = $this->mensajeDisponible();
+                $resultado[$k[0]]["cuerpo"] = ""; 
+                $resultado[$k[0]]["status"] = $k[1];
+
+            }
+
+        }
+        
+        return $resultado;
+        
+    }
+
+    /*
+        @Función para definir que se encuentra activado o desactivado
+        @IBelmont
+        @sice 12/11/19
+    */ 
+
+    public function crearArray()
+    {
+        $activar = $this->activar();
+
+        $temporal = [
+
+            0 => ["numImagenes",$activar["numImagenes"]],
+
+            1 => ["duracionVideo",$activar["duracionVideo"]],
+
+            2 => ["tipo",$activar["tipo"]],
+
+            3 => ["tiempo",$activar["tiempo"]]
+
+        ];
+
+        return $temporal;
+    }
+
+    /*
+        @Función para activar o desactivar botones para editar el sistema SMIM-PC
+        @IBelmont
+        @sice 12/11/19
+    */ 
+
+    public function activar()
+    {
+
+        $active = [
+
+            "numImagenes" => "disabled", //Numero máximo de Imagenes a analizar por defecto 30
+
+            "duracionVideo" => "disabled", //Duracion máxima del video en minutos por defecto 5 mins
+
+            "tipo" => "disabled", //Tipo de proyecto por defecto : Soldadura , Maquinado , Fundicion
+
+            "tiempo" => "disabled", //Tiempo del procesamiento de video por defecto : 10, 15 seg
+
+        ];
+        
+        return $active;
+
+    }
+
+    /*
+        @Función para mostrar el mensaje de no disponible en editar
+        @IBelmont
+        @sice 12/11/19
+    */ 
+
+    public function mensajeNoDisponible()
+    {
+
+        $mensaje = [
+
+            "cabezera"  => "Aun no disponible ...",
+            "cuerpo" => "Por el momento no se puede cambiar lo siguiente.",
+
+        ];
+
+        return $mensaje;
+
+    }
+
+    /*
+        @Función para mostrar el mensaje de disponible en editar
+        @IBelmont
+        @sice 12/11/19
+    */ 
+
+    public function mensajeDisponible()
+    {
+
+        $mensaje = "Habilita la casilla para poder cambiar el valor.";
+
+        return $mensaje;
+
+    }
+
 }

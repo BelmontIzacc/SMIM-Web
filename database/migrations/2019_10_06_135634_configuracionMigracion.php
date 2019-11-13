@@ -17,6 +17,8 @@ class ConfiguracionMigracion extends Migration
             $table->string('duracionVideo', 5)->nullable();
             $table->string('numImagenes', 5)->nullable();
             $table->string('numCoordenadas', 5)->nullable();
+            $table->string('procesamientoVid')->nullable();
+            $table->string('numVideos',5)->nullable();
             $table->timestamps();
         });  
     }

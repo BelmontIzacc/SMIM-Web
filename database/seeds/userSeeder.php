@@ -17,5 +17,19 @@ class userSeeder extends Seeder
             'tipo' => '1',
             'email' => 'jisagiizacc@gmail.com'
         ]);
+
+        DB::table('usuario')->insert([
+            'username' => 'admin',
+            'password' => bcrypt('admin'),
+            'tipo' => '1',
+            'email' => 'correo@gmail.com'
+        ]);
+
+        DB::table('usuario')->insert([
+            'username' => 'cliente',
+            'password' => bcrypt('cliente'),
+            'tipo' => '1',
+            'email' => 'jisagiizacc@gmail.com'
+        ]);
     }
 }

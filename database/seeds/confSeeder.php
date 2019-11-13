@@ -15,6 +15,8 @@ class confSeeder extends Seeder
             'duracionVideo' => '5',
             'numImagenes' => '30',
             'numCoordenadas' => '5',
+            'procesamientoVid' => '10,15,20',
+            'numVideos' =>  '2'
         ]);
     }
 }

@@ -26,6 +26,13 @@ function tipo(tipo)
     estadoActual.disabled = !estadoActual.disabled;
 }
 
+function tiempo(tiempo)
+{
+    var estadoActual = document.getElementById(tiempo);
+ 
+    estadoActual.disabled = !estadoActual.disabled;
+}
+
 function editar(){
 	var estadoActual = document.getElementById("interes");
 	document.getElementById("nInteres").value = estadoActual.value;
@@ -39,7 +46,12 @@ function editar(){
     var estadoActual = document.getElementById("tipo");
     document.getElementById("nTipo").value = estadoActual.value;
 
+    var estadoActual = document.getElementById("tiempo");
+    document.getElementById("nTiempo").value = estadoActual.value;
+
     document.getElementById("nTipoBorrar").value = "-1";
+    
+    document.getElementById("nTiempoBorrar").value = "-1";
 
  	document.getElementById("forms").submit();
 } 
@@ -54,9 +66,30 @@ function borrar($t) {
 
     document.getElementById("nTipo").value = "-1";
 
+    document.getElementById("nTipoBorrar").value = $t.id;
+
+    document.getElementById("nTiempo").value = "-1";
+
+    document.getElementById("nTiempoBorrar").value = "-1";
+
+    document.getElementById("forms").submit();
+}
+
+function borrarTiempo($t) {
+
+    document.getElementById("nInteres").value = "-1";
+
+    document.getElementById("nImagenes").value = "-1";
+
+    document.getElementById("nVideo").value = "-1";
+
+    document.getElementById("nTipo").value = "-1";
+
     document.getElementById("nTipoBorrar").value = "-1";
 
-    document.getElementById("nTipoBorrar").value = $t.id;
+    document.getElementById("nTiempo").value = "-1";
+
+    document.getElementById("nTiempoBorrar").value = $t;
 
     document.getElementById("forms").submit();
 }
