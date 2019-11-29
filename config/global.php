@@ -1,54 +1,9 @@
 <?php
 
 return [
-    'folio' => 123,
+    'folio' => 'QueDemonios',
     //Constantes
-    'logo'  =>  '/Template/images/perfil/logo.png',
-    'fondo' =>  '/Template/images/perfil/fondo.png',
-    
-    'nombresAntecedentes' => array(
-        'Ninguno',
-        'Padres',
-        'Abuelos',
-        'Tios',
-        'Hermanos',
-        'Hijos',
-    ),
-    'sexos' => array(
-        'Seleccionar',
-        'Masculino',
-        'Femenino',
-    ),
-    'documentacion' => array(
-        'Seleccionar',
-        'Completa',
-        'Incompleta',
-    ),
-    'turnos' => array(
-        'Seleccionar',
-        'Matutino',
-        'Vespertino',
-    ),
-    'familiar' => array(
-        'Seleccionar',
-        'Padre',
-        'Hermano',
-        'Tio',
-        'Tutor legal',
-    ),
-    'tipos' => array(
-        '',
-        'Administrador',
-        'Alumno',
-        'Coordinador',
-    ),
-    'proveedores' => array(
-        'Seleccionar',
-        'UPIIZ-IPN',
-        //'Padres',
-        'Trabajo',
-    ),
-    //fin constantes
+    'logoMini' => '123',
 
     //Estilos
     'statusStyleTextBox' => array(

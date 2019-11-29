@@ -48,40 +48,56 @@
 								<div class="body table-responsive">
 								    <table class="table">
 								        <thead>
-								            <tr>
-								                <th>Imagen</th>
-								                <th>Celsius</th>
-								                <th>Kelvin</th>
-								                <th>Farenheit</th>
-								            </tr>
+								        	@if(count($nc) == 0)
+								        		<tr>
+								        			<th>Lo sentimos</th>
+								        		</tr>
+								        	@else
+									            <tr>
+									                <th>Imagen</th>
+									                <th>Celsius</th>
+									                <th>Kelvin</th>
+									                <th>Farenheit</th>
+									            </tr>
+									        @endif
 								        </thead>
 								        <tfoot>
-								            <tr>
-								                <th>Imagen</th>
-								                <th>Celsius</th>
-								                <th>Kelvin</th>
-								                <th>Farenheit</th>
-								            </tr>
+								        	@if(count($nc) == 0)
+								        		<tr>
+								        			<th>Lo sentimos</th>
+								        		</tr>
+								        	@else
+									            <tr>
+									                <th>Imagen</th>
+									                <th>Celsius</th>
+									                <th>Kelvin</th>
+									                <th>Farenheit</th>
+									            </tr>
+									        @endif
 								        </tfoot>
 								        <tbody>
-								            
-								            @foreach($nc as $c)
-								            <tr>
-								                
-								                <?php $id = 'id'.$c;?>
-								                <td id="<?php echo $id; ?>"></td>
+								            @if(count($nc) == 0)
+			                                    <tr align="center">
+													<td>Sin información disponible</td>
+			                                    </tr>
+		                                    @else
+									            @foreach($nc as $c)
+									            <tr>
+									                
+									                <?php $id = 'id'.$c;?>
+									                <td id="<?php echo $id; ?>"></td>
 
-								                <?php $cC = 'cC'.$c;?>
-								                <td id="<?php echo $cC; ?>"></td>
+									                <?php $cC = 'cC'.$c;?>
+									                <td id="<?php echo $cC; ?>"></td>
 
-								                <?php $cK = 'cK'.$c;?>
-								                <td id="<?php echo $cK; ?>"></td>
+									                <?php $cK = 'cK'.$c;?>
+									                <td id="<?php echo $cK; ?>"></td>
 
-								                <?php $cF = 'cF'.$c;?>
-								                <td id="<?php echo $cF; ?>"></td>
-								            </tr>
-								            @endforeach
-
+									                <?php $cF = 'cF'.$c;?>
+									                <td id="<?php echo $cF; ?>"></td>
+									            </tr>
+									            @endforeach
+											@endif
 								        </tbody>
 								    </table>
 								</div>
@@ -170,7 +186,7 @@
                                     <div class="media">
                                         <div class="media-left">
                                             <a>
-                                                <img src="{{asset('/Template/images/user-lg.jpg')}}"> 
+                                                <img src="{{asset('/Template/images/escala/NewLogof.png')}}"> 
                                             </a>
                                         </div>
                                         <div class="media-body">
@@ -189,29 +205,41 @@
 														<div class="body table-responsive">
 								                            <table class="table">
 								                                <thead>
-								                                    <tr>
-								                                        <th>#</th>
-								                                        <th>Archivo</th>
-								                                        <th>Link</th>
-								                                    </tr>
+								                                	@if(count($archivo) == 0)
+									                                    <tr>
+									                                        <th>Lo sentimos</th>
+									                                    </tr>
+									                                @else
+																		<tr>
+									                                    	<th>#</th>
+									                                        <th>Archivo</th>
+									                                        <th>Link</th>
+									                                    </tr>
+									                                @endif
 								                                </thead>
 								                                <tbody>
-								                                	<?php $num = 0; ?>
-								                                	@foreach( $archivo  as $a)
-								                                    <tr>
-								                                        <th scope="row"> 
-								                                        	<button type="button" onclick="proyecto({{$txt}},{{$num}});" class="btn bg-teal btn-block btn-xs waves-effect" data-toggle="modal" data-target=".bd-example-modal-lg"><?php echo $num; ?></button> 
-								                                        </th>
-								                                        <td>
-								                                        	<?php echo "Coordenada ".$num; ?>
-								                                        </td>
-								                                        <td>
-								                                        	<?php $l = $link."/".$a; ?>
-								                                        	<a href="{{asset('')}}<?php echo $l;?>" style="color: #008080;" download="Temperatura_Coordenada<?php echo $num;?>.txt">Descargar</a>
-								                                        </td>
-								                                    </tr>
-								                                    <?php $num = $num + 1; ?>
-								                                    @endforeach
+								                                	@if(count($archivo) != 0)
+									                                	<?php $num = 0; ?>
+									                                	@foreach( $archivo  as $a)
+									                                    <tr>
+									                                        <th scope="row"> 
+									                                        	<button type="button" onclick="proyecto({{$txt}},{{$num}});" class="btn bg-teal btn-block btn-xs waves-effect" data-toggle="modal" data-target=".bd-example-modal-lg"><?php echo $num; ?></button> 
+									                                        </th>
+									                                        <td>
+									                                        	<?php echo "Coordenada ".$num; ?>
+									                                        </td>
+									                                        <td>
+									                                        	<?php $l = $link."/".$a; ?>
+									                                        	<a href="{{asset('')}}<?php echo $l;?>" style="color: #008080;" download="Temperatura_Coordenada<?php echo $num;?>.txt">Descargar</a>
+									                                        </td>
+									                                    </tr>
+									                                    <?php $num = $num + 1; ?>
+									                                    @endforeach
+									                                @else
+									                                	<tr align="center">
+																			<td>Sin información disponible</td>
+			                                    						</tr>
+									                                @endif
 								                                </tbody>
 								                            </table>
 								                        </div>

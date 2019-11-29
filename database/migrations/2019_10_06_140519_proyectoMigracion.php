@@ -23,7 +23,7 @@ class ProyectoMigracion extends Migration
             $table->integer('tiempoAnalisis');
             $table->String('noSerie',45);
             $table->String('nombreAlumno',35);
-            $table->String('grupoAlumno',5);
+            $table->String('grupoAlumno',15);
             $table->String('linkProyecto',300);
 
             $table->timestamps();

@@ -47,40 +47,56 @@
 								<div class="body table-responsive">
 								    <table class="table">
 								        <thead>
-								            <tr>
-								                <th>Imagen</th>
-								                <th>Celsius</th>
-								                <th>Kelvin</th>
-								                <th>Farenheit</th>
-								            </tr>
+								        	@if(count($nc) == 0)
+								        		<tr>
+								        			<th>Lo sentimos</th>
+								        		</tr>
+								        	@else
+									            <tr>
+									                <th>Imagen</th>
+									                <th>Celsius</th>
+									                <th>Kelvin</th>
+									                <th>Farenheit</th>
+									            </tr>
+									        @endif
 								        </thead>
 								        <tfoot>
-								            <tr>
-								                <th>Imagen</th>
-								                <th>Celsius</th>
-								                <th>Kelvin</th>
-								                <th>Farenheit</th>
-								            </tr>
+								        	@if(count($nc) == 0)
+								        		<tr>
+								        			<th>Lo sentimos</th>
+								        		</tr>
+								        	@else
+									            <tr>
+									                <th>Imagen</th>
+									                <th>Celsius</th>
+									                <th>Kelvin</th>
+									                <th>Farenheit</th>
+									            </tr>
+									        @endif
 								        </tfoot>
 								        <tbody>
-								            
-								            @foreach($nc as $c)
-								            <tr>
-								                
-								                <?php $id = 'id'.$c;?>
-								                <td id="<?php echo $id; ?>"></td>
+								            @if(count($nc) == 0)
+			                                    <tr align="center">
+													<td>Sin información disponible</td>
+			                                    </tr>
+		                                    @else
+									            @foreach($nc as $c)
+									            <tr>
+									                
+									                <?php $id = 'id'.$c;?>
+									                <td id="<?php echo $id; ?>"></td>
 
-								                <?php $cC = 'cC'.$c;?>
-								                <td id="<?php echo $cC; ?>"></td>
+									                <?php $cC = 'cC'.$c;?>
+									                <td id="<?php echo $cC; ?>"></td>
 
-								                <?php $cK = 'cK'.$c;?>
-								                <td id="<?php echo $cK; ?>"></td>
+									                <?php $cK = 'cK'.$c;?>
+									                <td id="<?php echo $cK; ?>"></td>
 
-								                <?php $cF = 'cF'.$c;?>
-								                <td id="<?php echo $cF; ?>"></td>
-								            </tr>
-								            @endforeach
-
+									                <?php $cF = 'cF'.$c;?>
+									                <td id="<?php echo $cF; ?>"></td>
+									            </tr>
+									            @endforeach
+											@endif
 								        </tbody>
 								    </table>
 								</div>
@@ -105,7 +121,7 @@
             <div class="profile-header">&nbsp;</div>
             <div class="profile-body">
                 <div class="image-area">
-                	<img src="{{asset('/Template/images/perfil/mono.png')}}" width="128" height="128" alt="SMIM">
+                	<img src="{{asset('/Template/images/escala/NewLogof.png')}}" width="128" height="128" alt="SMIM">
                 </div>
                 <div class="content-area">
                     <h3></h3>
@@ -193,7 +209,7 @@
                                     <div class="media">
                                         <div class="media-left">
                                             <a>
-                                                <img src="{{asset('/Template/images/perfil/mono.png')}}"> 
+                                                <img src="{{asset('/Template/images/escala/NewLogof.png')}}"
                                             </a>
                                         </div>
                                         <div class="media-body">
@@ -297,7 +313,7 @@
                                     <div class="media">
                                         <div class="media-left">
                                             <a>
-                                            	<img src="{{asset('/Template/images/perfil/mono.png')}}">
+                                            	<img src="{{asset('/Template/images/escala/NewLogof.png')}}"
                                             </a>
                                         </div>
                                         <div class="media-body">
@@ -338,7 +354,7 @@
 							        <div class="media">
 							            <div class="media-left">
 							                <a>
-							                	<img src="{{asset('/Template/images/perfil/mono.png')}}">
+							                	<img src="{{asset('/Template/images/escala/NewLogof.png')}}">
 							                </a>
 							            </div>
 							            <div class="media-body">
@@ -427,7 +443,7 @@
 							        <div class="media">
 							            <div class="media-left">
 							                <a>
-							                	<img src="{{asset('/Template/images/perfil/mono.png')}}">
+							                	<img src="{{asset('/Template/images/escala/NewLogof.png')}}">
 							                </a>
 							            </div>
 							            <div class="media-body">

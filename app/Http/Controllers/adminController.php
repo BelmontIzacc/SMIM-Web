@@ -411,4 +411,50 @@ class adminController extends Controller
 
     }
 
+    /*
+        @Función para editar las credenciales del administrador
+        @IBelmont
+        @sice 23/11/19
+    */
+    public function credenciales()
+    {
+        $index = 2;
+        $user = Auth::user();
+
+        return view('admin.credenciales', [
+
+           'index' => $index,
+           'user'  => $user,
+
+        ]);
+    }
+
+    public function credencialesPost(Request $request)
+    {
+        $this->validate($request, [
+            'username' => 'required|min:3|max:15',
+            'email' => 'required|email',
+            'password' => 'required|same:password2',
+            'password2' => 'required',
+        ]);
+        
+        $user = Auth::user();
+
+        $pass = bcrypt($request->password);
+
+        $user->update([
+            'username'=>$request->username,
+            'email'=>$request->email,
+            'password'=>$pass,
+        ]);
+
+        $user->save();
+
+        session()->flash('message', 'Se a cambiado correctamente la contraseña');
+        session()->flash('type', 'success');
+
+        return redirect("/");
+
+    }
+
 }

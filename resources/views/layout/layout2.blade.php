@@ -72,7 +72,7 @@
 
 <body class="theme-teal">
     <!-- Page Loader -->
-    <div class="page-loader-wrapper" style="display: none;">
+    <div class="page-loader-wrapper">
         <div class="loader">
             <div class="preloader">
                 <div class="spinner-layer pl-red">
@@ -89,7 +89,7 @@
     </div>
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
-    <div class="overlay" style="display: none;"></div>
+    <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
     <!-- Search Bar -->
     <div class="search-bar">
@@ -137,7 +137,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="{{asset('/Template/images/user.png')}}" width="48" height="48" alt="User">
+                    <img src="{{asset('/Template/images/escala/NewLogo_BlancoNegro.svg')}}" width="48" height="48" alt="User">
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><p class="font-bold" style="color:black;">SMIM</p></div>
@@ -146,13 +146,14 @@
                         <i class="material-icons font-bold" data-toggle="dropdown" style="color:#008080;" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             @unless($index == 2)
-                            <li><a href="{{asset('/login')}}" class=" waves-effect waves-block"><i class="material-icons">person</i>Sing In</a></li>
+                            <li><a href="{{asset('/login')}}" class=" waves-effect waves-block"><i class="material-icons">person</i>Iniciar sesión</a></li>
                             @endunless
 							@unless($index == 1)
                             @unless($index == 2)
                             <li role="separator" class="divider"></li>
                             @endunless
-                            <li><a href="{{asset('/logout')}}"" class=" waves-effect waves-block"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="{{asset('/logout')}}"" class=" waves-effect waves-block"><i class="material-icons">input</i>Cerrar sesión</a></li>
+                            <li><a href="{{asset('/credenciales')}}"" class=" waves-effect waves-block"><i class="material-icons">build</i>Configuración</a></li>
 							@endunless
                         </ul>
                     </div>

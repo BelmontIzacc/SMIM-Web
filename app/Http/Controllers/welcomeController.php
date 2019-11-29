@@ -274,9 +274,11 @@ class welcomeController extends Controller
         $img = $this->validarTam($img);
 
         //Coordenadas
-        $fp = fopen(''.$nombre."/coordenada/coordenada.txt", "r");
+        //$fp = fopen(''.$nombre."/coordenada/coordenada.txt", "r");
+        $fp = opendir(''.$nombre."/coordenada");
         $coord = array();
-        $coord = $this->leerArchivo($fp,$coord);
+        //$coord = $this->leerArchivo($fp,$coord);
+        $coord = $this->leerMultipleArchivo($nombre,$fp,"/coordenada",$coord);
         $coord = $this->validarTam($coord);
 
         //estadistica por punto de interes
@@ -395,9 +397,11 @@ class welcomeController extends Controller
         $user = null;
 
         //Coordenadas
-        $fp = fopen(''.$nombre."/coordenada/coordenada.txt", "r");
+        //$fp = fopen(''.$nombre."/coordenada/coordenada.txt", "r");
+        $fp = opendir(''.$nombre."/coordenada");
         $coord = array();
-        $coord = $this->leerArchivo($fp,$coord);
+        //$coord = $this->leerArchivo($fp,$coord);
+        $coord = $this->leerMultipleArchivo($nombre,$fp,"/coordenada",$coord);
         $coord = $this->validarTam($coord);
 
         //temperatura por coordenada

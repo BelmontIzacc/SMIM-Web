@@ -31,6 +31,9 @@ Route::get('/logout','Auth\AuthController@getLogout');
 //-----------------------------------------------------------------------------------//
 Route::get('/admin', 'adminController@index');
 
+Route::get('/credenciales', 'adminController@credenciales');
+Route::post('/credenciales', 'adminController@credencialesPost');
+
 Route::get('/configuracion/borrar', 'adminController@borrar');
 Route::post('/configuracion/borrar', 'adminController@borrarPost');
 
